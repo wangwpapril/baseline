@@ -35,7 +35,6 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 	public static Object mLock;
 	
 
-	//搴旂敤瀹炰緥
 	private static MyApplication instance;
 	
 	public static MyApplication getInstance(){

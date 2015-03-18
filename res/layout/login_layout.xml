@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background">
+    
+    <ScrollView
+	    android:id="@+id/scrollView1"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+
+	    <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="vertical" >
+	        
+	        <ImageView
+		        android:id="@+id/logo"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="50dp"
+                android:paddingBottom="10dp"
+		        android:src="@drawable/logo3" />
+	        
+	        <TextView
+				android:id="@+id/travel_smart"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/logo"
+				android:paddingTop="0dp"
+				android:gravity="center_horizontal"
+				android:text="TRAVEL SMART"
+			    android:textColor="@color/white"
+                android:textSize="25sp"				
+				android:textAppearance="?android:attr/textAppearanceSmall" />
+	        
+		    
+				<LinearLayout
+				    android:id="@+id/signinEmailLayout"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_below="@+id/travel_smart"
+				    android:layout_marginTop="50dp"
+				    android:paddingTop="10dp"
+				    android:gravity="center_horizontal" >
+				    
+			
+				    <EditText
+				        android:id="@+id/signinEmailEditText"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_gravity="center_horizontal"
+				        android:ems="10"
+				        android:gravity="left"
+				        android:hint="EMAIL"
+				        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:background="#00000000"
+				        android:inputType="textEmailAddress" >
+
+				    </EditText>
+		
+		   		</LinearLayout>
+		   		
+				<LinearLayout
+				    android:id="@+id/signinPasswordLayout"
+				    android:layout_marginTop="20dp"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_below="@+id/signinEmailLayout"
+				    android:gravity="center_horizontal" >
+				    
+			
+				    <EditText
+				        android:id="@+id/signinPasswordEditText"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_gravity="center_horizontal"
+				        android:ems="10"
+				        android:gravity="left"
+				        android:hint="PASSWORD"
+				        android:textSize="20sp"
+                        android:background="#00000000"
+				        android:inputType="textPassword" >
+
+				    </EditText>
+
+		   		</LinearLayout>
+		   		
+				
+		   		
+ 					<Button 
+				    android:id="@+id/butSignIn"
+				    android:layout_marginTop="20dp"
+				    android:background="@android:color/holo_blue_dark"
+				    android:text="LOG IN"
+				    android:layout_below="@+id/signinPasswordLayout"
+				    android:layout_centerHorizontal="true"
+				    android:layout_width="200dp"
+				    android:layout_height="50dp"/>
+ 					
+ 				 <TextView
+				android:id="@+id/sign_up"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/butSignIn"
+				android:paddingTop="0dp"
+				android:gravity="center_horizontal"
+				android:text="Sign Up"
+			    android:textColor="@color/white"
+                android:textSize="25sp"				
+				android:textAppearance="?android:attr/textAppearanceSmall" />
+	        
+ 			<FrameLayout
+ 			    	android:id="@+id/LoginHelp"
+ 			    	android:orientation="horizontal"
+ 			    	android:layout_below="@id/sign_up"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_alignParentBottom="true" >
+			    					
+				<TextView
+				    android:id="@+id/termsofuse"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_gravity="left"
+				    android:text="Terms of Use"
+				    android:textSize="16sp" />
+	        
+				<TextView
+				    android:id="@+id/learnMore"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_gravity="right"
+				    android:text="Learn More"
+				    android:textSize="16sp" />
+				</FrameLayout>
+
+			    </RelativeLayout>
+	</ScrollView>
+
+</RelativeLayout>
