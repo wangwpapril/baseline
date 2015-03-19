@@ -15,7 +15,7 @@ import android.os.Handler;
 
 
 public class ControlerContentTask extends
-		AsyncTask<IContentParms, Void, ResultHolder> {
+		AsyncTask<String, Void, ResultHolder> {
 
 	private IControlerContentCallback icc;
 	private String url;
@@ -62,16 +62,19 @@ public class ControlerContentTask extends
 		return connParams;
 	}
 
-	protected ResultHolder doInBackground(IContentParms... params){
+	protected ResultHolder doInBackground(String... params){
 
 		ResultHolder rh = new ResultHolder();
+		String json = params[0];
 		try {
 			switch (connMethod) {
 			case GET:
-				rh.setResult(SimpleHttpClient.get(url, getParams(params)));
+//				rh.setResult(SimpleHttpClient.get(url, getParams(params)));
 				break;
 			case POST:
-					rh.setResult(SimpleHttpClient.post(url, getParams(params)));
+//				rh.setResult(SimpleHttpClient.post(url, getParams(params)));
+				rh.setResult(SimpleHttpClient.doHttpPost(json, url));
+					
 				break;
 			}
 			rh.setSuccess(true);

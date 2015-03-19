@@ -1,8 +1,16 @@
 package com.intrepid.travel.ui.activity;
 
 
+import org.json.JSONObject;
+
+import com.google.mitijson.Gson;
+import com.intrepid.travel.Enums.ConnMethod;
 import com.intrepid.travel.MyApplication;
 import com.intrepid.travel.R;
+import com.intrepid.travel.net.ControlerContentTask;
+import com.intrepid.travel.net.IControlerContentCallback;
+import com.intrepid.travel.net.UserDemo;
+import com.intrepid.travel.net.UserInfoDemo;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -83,6 +91,66 @@ public class LoginActivity extends BaseActivity {
 						.getString(R.string.login_password_null));
 				return;
 			}
+			
+			IControlerContentCallback icc = new IControlerContentCallback() {
+				public void handleSuccess(String content){
+					try {
+//						CommonMethod.handleUserInfo(content);
+//						openHome();
+//						CommonMethod.sendBroadcastOfLogin(context);
+	//					setResult(RequestAndResultCode.RESULT_CODE_LOGIN_SUCCESS);
+						context.finish();
+//					} catch (KnownException ke) {
+						// if(ke.errorCode.equals("11")){//忘记密码错误码与已经存在此账号一致，需要确认
+						//
+						// }
+//						CommonMethod.handleException(context,ke.errorDesc);
+					} catch (Exception e) {
+						e.printStackTrace();
+//						CommonMethod.handleException(context,e);
+					}
+				}
+
+				public void handleError(Exception e){
+//					CommonMethod.handleException(context,e);
+				}
+			};
+			ControlerContentTask cct = new ControlerContentTask(
+					"https://api.intrepid247.com/v1/users/login", icc,
+					ConnMethod.POST,false);
+//			HashMap<String, String> params = new HashMap<String, String>();
+//			params.put(RequestLogin.KEY_PHONE_NUMBER, phone);
+//			params.put(RequestLogin.KEY_PASSWORD, password);
+/*			RequestLogin rl = new RequestLogin();
+			rl.password = password;
+			rl.phoneNumber = phone;
+			cct.execute(rl);
+*/
+			UserInfoDemo demo = new UserInfoDemo();
+			UserDemo user = new UserDemo();
+			user.setEmail("wwang@peakcontact.com");
+			user.setPsw("12345678");
+			demo.setUser(user);
+			Gson gson = new Gson();
+			String parasString = gson.toJson(demo);
+			
+			cct.execute(parasString);
+
+/*			HttpClient httpClient = new HttpClient();
+			PostParameter[] postParams = null;
+		
+//			String JSONResult = null;
+			String JSONResult = httpClient.post(parasString, "https://api.intrepid247.com/v1/users/login", 6000);	
+			
+            JSONObject jsonObj = new JSONObject(JSONResult);	
+            JSONObject userObj = jsonObj.getJSONObject("user");
+            User1 user1 = new User1(userObj);
+            String userid = user1.id;
+//            user1.id = "1160591404";
+            UserTable1.getInstance().saveUser(user1);
+            User1 ww = null;
+            ww = UserTable1.getInstance().getUser1(userid);
+*/
 
 		} else if (v == signUp) {
 			

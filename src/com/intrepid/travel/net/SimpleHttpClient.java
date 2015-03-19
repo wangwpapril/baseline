@@ -141,9 +141,13 @@ public class SimpleHttpClient {
 			urlCon.setDoOutput(true);
 			urlCon.setDoInput(true);
 			urlCon.setUseCaches(false);
-			urlCon.setRequestProperty("Content-Type", "text/xml");
+			urlCon.setRequestProperty("Content-Type", "application/json");
+			urlCon.setRequestProperty("Accept", "application/json");
 			urlCon.setRequestProperty("Content-length",
 					String.valueOf(xmlData.length));
+			
+			
+
 			System.out.println(String.valueOf(xmlData.length));
 			DataOutputStream printout = new DataOutputStream(
 					urlCon.getOutputStream());
@@ -163,12 +167,7 @@ public class SimpleHttpClient {
 				System.out.println("返回空");
 			}
 			System.out.println("返回数据为:" + ResponseString);
-			return ResponseString;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "0";
-		} finally {
+			
 			try {
 				out.close();
 				instr.close();
@@ -176,6 +175,11 @@ public class SimpleHttpClient {
 			} catch (Exception ex) {
 				return "0";
 			}
+			return ResponseString;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "0";
 		}
 	}
 
