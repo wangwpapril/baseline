@@ -12,27 +12,33 @@ import com.intrepid.travel.utils.ToastHelper;
 
 public class Enums {
 
-	/**
-	 * ¸å¼þÉÏ´«ÈÎÎñ×´Ì¬(ÊôÓÚManuscriptStatusÖÐµÄStandToµÄ×Ó×´Ì¬)
-	 * @author SongQing<p>
-	 * 
-	 * <·¢ËÍÖÐ>µ±¸å¼þÕýÊ½¿ªÊ¼ÉÏÔØÊ±£¬ÐÞ¸ÄÆäÔÚÊý¾Ý¿âÖÐµÄ×´Ì¬Îª·¢ËÍÖÐ<p>
-	 * <Ê§°Ü>µ±¸å¼þ·¢ËÍÖÐ³ÌÐò³öÏÖÒì³££¬µ¼ÖÂ·¢ËÍÍ£Ö¹£¬ÐÞ¸ÄÆäÔÚÊý¾Ý¿âÖÐµÄ×´Ì¬Îª·¢ËÍÊ§°Ü£¬
-	 * ·¢ËÍ¹ý³ÌÖÐ£¬ÓÃ»§µã»÷ÔÝÍ£°´Å¥£¬²¢ÍË³ö³ÌÐò£¬Ò²°´ÕÕÊ§°Ü´¦Àí£¬ÏÂÒ»´Î´ò¿ª°´ÕÕ¶ÏµãÐø´«´¦Àí<p>
-	 * <µÈ´ý>µ±¸å¼þ±äÎª´ý·¢×´Ì¬ÇÒÃ»ÓÐ¿ªÊ¼·¢ËÍµÄÖ®¼äµÄ¹ý³Ì½Ð×öµÈ´ý<p>
-	 * <Íê³É>¸å¼þ·¢ËÍÍê±Ï<p>
-	 * <È¡Ïû>ÉÏ´«ÈÎÎñ±»ÈË¹¤È¡Ïûµô£¬¸å¼þ»á»Øµ½±à¼­×´Ì¬£¬³öÏÖÔÚÔÚ±à¸å¼þÁÐ±í<p>
-	 */
+	public enum ConnMethod {
+		GET("get"), POST("post");
+		private String type;
+
+		private ConnMethod(String type){
+			this.type = type;
+		}
+
+		public String getType(){
+			return type;
+		}
+
+		public void setType(String type){
+			this.type = type;
+		}
+
+	}
 	public enum UploadTaskStatus{
-		Sending("·¢ËÍÖÐ"),
-		FailedRestart("Ê§°ÜÐèÖØ´«"),
-		Paused("ÔÝÍ£"),
-		Waiting("µÈ´ý"),
-		Finished("Íê³É"),
-		FailedContinue("Ê§°ÜÐèÐø´«"),
-		Cancel("È¡Ïû"),
-		Failed("Ê§°Ü"),
-		Restart("ÖØ´«");
+		Sending("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		FailedRestart("Ê§ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½"),
+		Paused("ï¿½ï¿½Í£"),
+		Waiting("ï¿½È´ï¿½"),
+		Finished("ï¿½ï¿½ï¿½"),
+		FailedContinue("Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		Cancel("È¡ï¿½ï¿½"),
+		Failed("Ê§ï¿½ï¿½"),
+		Restart("ï¿½Ø´ï¿½");
 		
 		private final String svalue;
 
@@ -45,18 +51,18 @@ public class Enums {
 		}
 	}
 	/**
-	 * ¸å¼þ×´Ì¬
+	 * ï¿½ï¿½ï¿½×´Ì¬
 	 * @author SongQing<p>
-	 * <´ý·¢>µ±¸å¼þµã»÷·¢ËÍ£¬ÄÚÈÝÑéÖ¤Í¨¹ýÖ®ºó¾ÍÐÞ¸ÄÆäÔÚÊý¾Ý¿âÖÐµÄ×´Ì¬Îª´ý·¢<p>
-	 * <±à¼­ÖÐ>´ÓÐÂ½¨¸å¼þÌí¼ÓÈë¿âÒ»Ö±µ½µã»÷·¢¸åÖ®¼ä¸å¼þÒ»Ö±´¦ÓÚ±à¼­ÖÐ×´Ì¬<p>
-	 * <ÌÔÌ­>¸å¼þ´Ó±à¼­ÖÐ×´Ì¬¿ÉÒÔ×ª»»ÎªÌÔÌ­<p>
-	 * <ÒÑ·¢>¸å¼þ·¢ËÍ³É¹¦£¬±£´æ»Ø´«¸åºÅ£¬²¢¸üÐÂÊý¾Ý¿ânewsId×Ö¶ÎºÍ¸å¼þ×´Ì¬ÎªÒÑ·¢<p>
+	 * <ï¿½ï¿½>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤Í¨ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ðµï¿½×´Ì¬Îªï¿½ï¿½<p>
+	 * <ï¿½à¼­ï¿½ï¿½>ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ò»Ö±ï¿½ï¿½ï¿½Ú±à¼­ï¿½ï¿½×´Ì¬<p>
+	 * <ï¿½ï¿½Ì­>ï¿½ï¿½ï¿½ï¿½Ó±à¼­ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½Ì­<p>
+	 * <ï¿½Ñ·ï¿½>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½newsIdï¿½Ö¶ÎºÍ¸ï¿½ï¿½×´Ì¬Îªï¿½Ñ·ï¿½<p>
 	 */
 	public enum ManuscriptStatus{
-		StandTo("´ý·¢"), 
-		Editing("±à¼­ÖÐ"), 
-		Elimination("ÌÔÌ­"),
-		Sent("ÒÑ·¢");
+		StandTo("ï¿½ï¿½"), 
+		Editing("ï¿½à¼­ï¿½ï¿½"), 
+		Elimination("ï¿½ï¿½Ì­"),
+		Sent("ï¿½Ñ·ï¿½");
 		
 		private final String svalue;
 
@@ -70,7 +76,7 @@ public class Enums {
 	}
 	
 	/**
-	 * ×Ô¶¨Òå²¼¶ûÐÍ£¬ÓÃ×÷´æ²¼¶û0Óë1
+	 * ï¿½Ô¶ï¿½ï¿½å²¼ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ²¼ï¿½ï¿½0ï¿½ï¿½1
 	 * @author wenyujun
 	 *
 	 */
@@ -99,17 +105,17 @@ public class Enums {
 	}
 	
 	/**
-	 * ¸å¼þ¸½¼þÀàÐÍ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @author SongQing
 	 *
 	 */
 	public enum AccessoryType{
 		Picture("Í¼Æ¬"), 
-		Video("ÊÓÆµ"), 
-		Voice("ÉùÒô"),
-		Complex("¸´ÔÓÎÄµµ"),
-		Graph("Í¼±í"),
-		Text("ÎÄ×Ö"),
+		Video("ï¿½ï¿½Æµ"), 
+		Voice("ï¿½ï¿½ï¿½ï¿½"),
+		Complex("ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½"),
+		Graph("Í¼ï¿½ï¿½"),
+		Text("ï¿½ï¿½ï¿½ï¿½"),
 		Cache("Cache");
 		
 		private final String svalue;
@@ -124,13 +130,13 @@ public class Enums {
 	}
 	
 	/**
-	 * ÈÕÖ¾ÀàÐÍ
+	 * ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½
 	 * @author SongQing
 	 *
 	 */
 	public enum LogType{
-		System("ÏµÍ³ÈÕÖ¾"), 
-		Operation("ÓÃ»§²Ù×÷ÈÕÖ¾");
+		System("ÏµÍ³ï¿½ï¿½Ö¾"), 
+		Operation("ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾");
 		
 		private final String svalue;
 
@@ -144,16 +150,16 @@ public class Enums {
 	}
 	
 	/**
-	 * PreferenceÊý¾Ý´æ´¢µÄÀàÐÍ
+	 * Preferenceï¿½ï¿½Ý´æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @author SongQing
 	 *
 	 */
 	public enum PreferenceType{
-		Boolean("²¼¶ûÐÍ"),
-		String("×Ö·û´®ÐÍ"),
-		Int("ÕûÐÍ"),
-		Float("¸¡µãÐÍ"),
-		Long("³¤ÕûÐÍ");
+		Boolean("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		String("ï¿½Ö·ï¿½ï¿½ï¿½"),
+		Int("ï¿½ï¿½ï¿½ï¿½"),
+		Float("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		Long("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		
 		private final String svalue;
 
@@ -167,12 +173,12 @@ public class Enums {
 	} 
 	
 	/**
-	 * Í¨ÓÃ²Ù×÷ÀàÐÍ
+	 * Í¨ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @author wenyujun
 	 *
 	 */
 	public enum OperationType{
-		Add("Ìí¼Ó"), Update("¸üÐÂ"), Delete("É¾³ý"), View("²é¿´"), None("ÎÞ");
+		Add("ï¿½ï¿½ï¿½"), Update("ï¿½ï¿½ï¿½ï¿½"), Delete("É¾ï¿½ï¿½"), View("ï¿½é¿´"), None("ï¿½ï¿½");
 		
 		private final String svalue;
 
@@ -189,12 +195,12 @@ public class Enums {
 	
 	
 	public enum TemplateType{
-		NORMAL("ÓÃ»§×Ô¶¨ÒåÄ£°å"),
-		WORD("ÎÄ×Ö¿ìÑ¶"),
-		PICTURE("Í¼Æ¬¿ìÑ¶"),
-		VOICE("ÓïÒô¿ìÑ¶"),
-		VIDEO("ÊÓÆµ¿ìÑ¶"),
-		INSTANT("¼´ÅÄ¼´´«");
+		NORMAL("ï¿½Ã»ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ä£ï¿½ï¿½"),
+		WORD("ï¿½ï¿½ï¿½Ö¿ï¿½Ñ¶"),
+		PICTURE("Í¼Æ¬ï¿½ï¿½Ñ¶"),
+		VOICE("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¶"),
+		VIDEO("ï¿½ï¿½Æµï¿½ï¿½Ñ¶"),
+		INSTANT("ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½");
 		
 		private final String svalue;
 
@@ -208,43 +214,43 @@ public class Enums {
 	}
 	
 	public enum PreferenceKeys{
-		User_DefaultTemplate("Ä¬ÈÏ¸åÇ©"),
-		Sys_CurrentUser("µ±Ç°ÓÃ»§"),
-		Sys_CurrentPassword("µ±Ç°ÓÃ»§ÃÜÂë"),
-		Sys_SystemVersion("µ±Ç°ÏµÍ³°æ±¾"),
-		Sys_DeviceID("µ±Ç°Éè±¸ID"),
-		Sys_NetStatus("µ±Ç°ÍøÂç×´Ì¬"),
-		Sys_LoginType("µ±Ç°µÇÂ¼·½Ê½"),
-		Sys_BaseData("¸üÐÂ»ù´¡Êý¾Ý"),
-		Sys_SynManuTemp("¸åÇ©Ä£°åÍ¬²½"),
-		Sys_VersionUp("ÏµÍ³°æ±¾Éý¼¶"),
-		Sys_CleanData("Çå³ýÊý¾Ý"),
-		Sys_CurrentServer("µ±Ç°·þÎñÆ÷"),			//µ±Ç°³ÌÐòÊµ¼ÊÁ¬½ÓµÄ·þÎñÆ÷£¬Ò²ÊÇÍ¨¹ý½Ó¿Ú·µ»ØÀ´µÄ·þÎñÆ÷
-		Sys_LoginServer("µÇÂ¼·þÎñÆ÷"),//ÓÃ»§ÅäÖÃµÄ·þÎñÆ÷
-		Sys_VersionLowest("µ±Ç°×îµÍ°æ±¾ÒªÇó"),
-		Sys_VersionCurrent("µ±Ç°×îÐÂ°æ±¾"),
-		User_FileBlockSize("ÎÄ¼þÉÏ´«·Ö¿é´óÐ¡"),
-		User_AutoSaveInterval("¸å¼þ×Ô¶¯±£´æÊ±¼äÉèÖÃ"),
-		User_AutoSendLocationInterval("¶¨Î»·þÎñ×Ô¶¯·¢ËÍÊ±¼äÉèÖÃ"),
-		User_ManuscriptSendPolicy("¸å¼þ·¢ËÍ²ßÂÔ"),
-		User_FailurePolicy("¸å¼þ·¢ËÍÊ§°Ü²ßÂÔ"),
-		User_SendByWifi("¸å¼þ·¢ËÍwifiÄ£Ê½"),
-		User_MessageTime("×îºóÈ¡³öÏûÏ¢Ê±¼ä"),
-		User_SavePassword("±£´æÓÃ»§ÃÜÂë"),
-		running_state("ÔËÐÐ×´Ì¬"),
-		username("µÇÂ¼Ãû"),
-		password("µÇÂ¼ÃÜÂë"),
-		portNum("¶Ë¿ÚºÅ"),
-		chrootDir("·ÃÎÊÄ¿Â¼"),
-		stayAwake("ÊÇ·ñÒ»Ö±´¦ÓÚÔËÐÐ×´Ì¬"),
-		show_password("Ã÷ÎÄÏÔÊ¾ÃÜÂë"),
-		instantUpload("¼´ÅÄ¼´´«"),
+		User_DefaultTemplate("Ä¬ï¿½Ï¸ï¿½Ç©"),
+		Sys_CurrentUser("ï¿½ï¿½Ç°ï¿½Ã»ï¿½"),
+		Sys_CurrentPassword("ï¿½ï¿½Ç°ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		Sys_SystemVersion("ï¿½ï¿½Ç°ÏµÍ³ï¿½æ±¾"),
+		Sys_DeviceID("ï¿½ï¿½Ç°ï¿½è±¸ID"),
+		Sys_NetStatus("ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½×´Ì¬"),
+		Sys_LoginType("ï¿½ï¿½Ç°ï¿½ï¿½Â¼ï¿½ï¿½Ê½"),
+		Sys_BaseData("ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½ï¿½"),
+		Sys_SynManuTemp("ï¿½ï¿½Ç©Ä£ï¿½ï¿½Í¬ï¿½ï¿½"),
+		Sys_VersionUp("ÏµÍ³ï¿½æ±¾ï¿½ï¿½"),
+		Sys_CleanData("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		Sys_CurrentServer("ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),			//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ÓµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Í¨ï¿½ï¿½Ó¿Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½
+		Sys_LoginServer("ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ÃµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½
+		Sys_VersionLowest("ï¿½ï¿½Ç°ï¿½ï¿½Í°æ±¾Òªï¿½ï¿½"),
+		Sys_VersionCurrent("ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Â°æ±¾"),
+		User_FileBlockSize("ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½Ö¿ï¿½ï¿½Ð¡"),
+		User_AutoSaveInterval("ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		User_AutoSendLocationInterval("ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		User_ManuscriptSendPolicy("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½"),
+		User_FailurePolicy("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü²ï¿½ï¿½ï¿½"),
+		User_SendByWifi("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wifiÄ£Ê½"),
+		User_MessageTime("ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ï¢Ê±ï¿½ï¿½"),
+		User_SavePassword("ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		running_state("ï¿½ï¿½ï¿½ï¿½×´Ì¬"),
+		username("ï¿½ï¿½Â¼ï¿½ï¿½"),
+		password("ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½"),
+		portNum("ï¿½Ë¿Úºï¿½"),
+		chrootDir("ï¿½ï¿½ï¿½ï¿½Ä¿Â¼"),
+		stayAwake("ï¿½Ç·ï¿½Ò»Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬"),
+		show_password("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½"),
+		instantUpload("ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½"),
 
-		Ftp_ChooseUsername("FtpÓÃ»§Ãû"),
-		User_UploadPicCompressRatio("ÉÏ´«Í¼Æ¬Ñ¹Ëõ±È"),
-		InstantMessage_Notification("ÏûÏ¢ÍÆËÍ"),
-		InstantMessage_Notification_Sound("ÏûÏ¢ÌáÊ¾Òô"),
-		InstantMessage_Notification_Vibrate("ÏûÏ¢Õð¶¯");
+		Ftp_ChooseUsername("Ftpï¿½Ã»ï¿½ï¿½ï¿½"),
+		User_UploadPicCompressRatio("ï¿½Ï´ï¿½Í¼Æ¬Ñ¹ï¿½ï¿½ï¿½ï¿½"),
+		InstantMessage_Notification("ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½"),
+		InstantMessage_Notification_Sound("ï¿½ï¿½Ï¢ï¿½ï¿½Ê¾ï¿½ï¿½"),
+		InstantMessage_Notification_Vibrate("ï¿½ï¿½Ï¢ï¿½ï¿½");
 		
 		private final String svalue;
 
@@ -258,15 +264,15 @@ public class Enums {
 	}
 	
 	/**
-	 * ÍøÂçÁ¬½ÓÇëÇóµÄÀàÐÍ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * Initial/Login/Normal
 	 * @author SongQing
 	 *
 	 */
 	public enum DoPostType{
-		Initial("³õ´ÎÁ¬½Ó"),
-		Login("µÇÂ½"),
-		Normal("ÆäËû");
+		Initial("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		Login("ï¿½ï¿½Â½"),
+		Normal("ï¿½ï¿½ï¿½ï¿½");
 		
 		private final String svalue;
 
@@ -280,15 +286,15 @@ public class Enums {
 	}
 	
 	/**
-	 * ÊÖ»úÍøÂç×´Ì¬
+	 * ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	 * @author wenyujun
 	 *
 	 */
 	public enum NetStatus
 	{
-		/*Disable("²»¿ÉÓÃ"),
-		WIFI("WIFI¿ÉÓÃ"),
-		MOBILE("ÊÖ»úÍøÂç¿ÉÓÃ");*/
+		/*Disable("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		WIFI("WIFIï¿½ï¿½ï¿½ï¿½"),
+		MOBILE("ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");*/
 		Disable(ToastHelper.getStringFromResources(R.string.network_disconnected)),
 		WIFI(ToastHelper.getStringFromResources(R.string.network_wifi_connected)),
 		MOBILE(ToastHelper.getStringFromResources(R.string.network_mobile_connected));
@@ -305,7 +311,7 @@ public class Enums {
 	}
 	
 	/**
-	 * ÏûÏ¢ÀàÐÍ£ºÏµÍ³ÐÅÏ¢(0) ½¨²ÉÐÅÏ¢(1) ¼´Ê±ÐÅÏ¢(2) XMPPÏûÏ¢(3) OAÏûÏ¢(4)
+	 * ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Í£ï¿½ÏµÍ³ï¿½ï¿½Ï¢(0) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢(1) ï¿½ï¿½Ê±ï¿½ï¿½Ï¢(2) XMPPï¿½ï¿½Ï¢(3) OAï¿½ï¿½Ï¢(4)
 	 * @author llna
 	 *
 	 */
@@ -339,7 +345,7 @@ public class Enums {
 		}
 	}
 	/**
-	 * ÐÅÏ¢ÔÄ¶ÁÈËÀàÐÍ£ºËùÓÐÈË(0) ²¿ÃÅ (1) ÈËÔ±(2)
+	 * ï¿½ï¿½Ï¢ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(0) ï¿½ï¿½ï¿½ï¿½ (1) ï¿½ï¿½Ô±(2)
 	 */
 	public enum Readertype
 	{
@@ -368,14 +374,14 @@ public class Enums {
 		
 	}
 	/**
-	 * µÇÂ¼×´Ì¬(Áª»ú/ÀëÏß)
+	 * ï¿½ï¿½Â¼×´Ì¬(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½)
 	 * @author SongQing
 	 *
 	 */
 	public enum LoginStatus{
-		/*online("Áª»ú"),
-		offline("ÀëÏß"),
-		none("³õÊ¼");*/
+		/*online("ï¿½ï¿½ï¿½ï¿½"),
+		offline("ï¿½ï¿½ï¿½ï¿½"),
+		none("ï¿½ï¿½Ê¼");*/
 		
 //		online(ToastHelper.getStringFromResources(R.string.online_enum)),
 	//	offline(ToastHelper.getStringFromResources(R.string.offline_enum)),
@@ -394,19 +400,19 @@ public class Enums {
 	*/}
 	
 	/**
-	 * ·ÃÎÊ½Ó¿ÚÀàÐÍ
+	 * ï¿½ï¿½ï¿½Ê½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @author SongQing
 	 *
 	 */
 	public enum InterfaceType{
-		baseUrl("µÇÂ½ÎÄ¼þ´«Êä"),
-		instantUploadUrl("¼´ÅÄ¼´´«"),
-		sinosoftUrl("ÖÐ¿ÆÈí"),
-		initialUrl("³õÊ¼½Ó¿Ú"),
-		topicdownloadUrl("»ù´¡ÎÄ¼þÏÂÔØ"),
-		oalistUrl("OAÁÐ±í"),
-		oaitemUrl("OAÏî"),
-		locationUrl("¶¨Î»·þÎñ");
+		baseUrl("ï¿½ï¿½Â½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		instantUploadUrl("ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½"),
+		sinosoftUrl("ï¿½Ð¿ï¿½ï¿½ï¿½"),
+		initialUrl("ï¿½ï¿½Ê¼ï¿½Ó¿ï¿½"),
+		topicdownloadUrl("ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½"),
+		oalistUrl("OAï¿½Ð±ï¿½"),
+		oaitemUrl("OAï¿½ï¿½"),
+		locationUrl("ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½");
 		
 		private final String svalue;
 
@@ -420,7 +426,7 @@ public class Enums {
 	}
 	
 	/**
-	 * ÏûÏ¢½ÓÊÕÕßÀàÐÍ£ºÈ«Ìå£¨0£© ²¿ÃÅ £¨1£© ½ÇÉ« £¨2£© ¸öÈË£¨3£© Ä¿Ç°Ö»¿ª·Å3
+	 * ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½È«ï¿½å£¨0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½1ï¿½ï¿½ ï¿½ï¿½É« ï¿½ï¿½2ï¿½ï¿½ ï¿½ï¿½ï¿½Ë£ï¿½3ï¿½ï¿½ Ä¿Ç°Ö»ï¿½ï¿½ï¿½ï¿½3
 	 * @author llna
 	 *
 	 */
@@ -452,7 +458,7 @@ public class Enums {
 	}
 	
 	/**
-	 * ÏûÏ¢½ÓÊÕ»ò»Ø¸´ÀàÐÍ£º½ÓÊÜ£¨0£©·¢ËÍ £¨1£©
+	 * ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Õ»ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½Ü£ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½1ï¿½ï¿½
 	 * @author llna
 	 *
 	 */
@@ -482,7 +488,7 @@ public class Enums {
 	}
 	
 	/**
-	 * ÏûÏ¢ÒÑ¶Á»òÎ´¶ÁÀàÐÍ£ºÒÑ¶Á£¨0£©Î´¶Á £¨1£©
+	 * ï¿½ï¿½Ï¢ï¿½Ñ¶ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Ñ¶ï¿½ï¿½ï¿½0ï¿½ï¿½Î´ï¿½ï¿½ ï¿½ï¿½1ï¿½ï¿½
 	 * @author llna
 	 *
 	 */
@@ -512,7 +518,7 @@ public class Enums {
 	}
 	
 	/**
-	 * ÏûÏ¢·¢ËÍ×´Ì¬£º³É¹¦£¨1£©Ê§°Ü £¨0£©
+	 * ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½1ï¿½ï¿½Ê§ï¿½ï¿½ ï¿½ï¿½0ï¿½ï¿½
 	 * @author llna
 	 *
 	 */
