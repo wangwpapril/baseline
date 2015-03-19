@@ -3,7 +3,6 @@ package com.intrepid.travel.ui.activity;
 
 import com.intrepid.travel.MyApplication;
 import com.intrepid.travel.R;
-import com.sinonet.tesibuy.common.CommonDefine.RequestAndResultCode;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
