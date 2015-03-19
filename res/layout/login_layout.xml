@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_background">
     
+            <include
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/custom_title_height"
+            layout="@layout/custom_title" />
+        
+    
+    
     <ScrollView
 	    android:id="@+id/scrollView1"
 	    android:layout_width="match_parent"

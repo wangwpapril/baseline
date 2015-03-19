@@ -42,7 +42,7 @@
             android:layout_width="45dip"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="编辑"
+            android:text="Edit"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:visibility="gone" />
@@ -78,7 +78,7 @@
         android:cursorVisible="true"
         android:drawableLeft="@drawable/search_title"
         android:drawablePadding="10dip"
-        android:hint="请输入搜索关键字"
+        android:hint="Please input keywords"
         android:paddingLeft="10dip"
         android:textColor="#4b4b4b"
         android:textCursorDrawable="@null"

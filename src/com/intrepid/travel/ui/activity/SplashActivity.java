@@ -45,7 +45,6 @@ import android.widget.Toast;
  * Splash screen activity is used to show splash . Here we use handler to show
  * splash for particular time and then disappear automatically.
  * 
- * @author SongQing
  */
 public class SplashActivity extends Activity {
 
@@ -100,10 +99,10 @@ public class SplashActivity extends Activity {
 		h.postDelayed(new Runnable() {
 			@Override
 			public void run(){
-//				Intent mIntent = new Intent(SplashActivity.this,LoginActivity.class);
+				Intent mIntent = new Intent(SplashActivity.this,LoginActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,SlidingdrawerActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,DraweringActivity.class);
-//				startActivity(mIntent);
+				startActivity(mIntent);
 				SplashActivity.this.finish();
 			}
 		},2000);	

@@ -5,6 +5,16 @@
     <string name="network_wifi_connected">Wi-Fi is available</string>
     <string name="network_mobile_connected">mobile is available</string>
     <string name="network_disconnected">network is unavailable</string>
+    <string name="login_email_input_error">Email input error</string>
+    <string name="login_password_null">Password can not be empty</string>
+    <string name="login_title_name">Log in</string>
+    
+    <string name="confirm_button">Confirm</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="agree_button">Agree</string>
+    <string name="disagree_button">disagree</string>
+    
+    
     
     
 
