@@ -1,7 +1,6 @@
 package com.intrepid.travel.ui.activity;
 
 
-import org.json.JSONObject;
 
 import com.google.mitijson.Gson;
 import com.intrepid.travel.Enums.ConnMethod;
@@ -53,8 +52,8 @@ public class LoginActivity extends BaseActivity {
 		signUp = (TextView) findViewById(R.id.sign_up);
 		
 		imBtnSignIn.setOnClickListener(this);
-		editTextPassword.setTransformationMethod(PasswordTransformationMethod
-				.getInstance());
+//		editTextPassword.setTransformationMethod(PasswordTransformationMethod
+	//			.getInstance());
 
 
 	}
@@ -116,8 +115,9 @@ public class LoginActivity extends BaseActivity {
 				}
 			};
 			ControlerContentTask cct = new ControlerContentTask(
-					"https://api.intrepid247.com/v1/users/login", icc,
-					ConnMethod.POST,false);
+//					"https://api.intrepid247.com/v1/users/login", icc,
+					"https://api.intrepid247.com/v1/destinations?short_list=true&token=ce6f284088d8c6bf88802f51f6d49776", icc,
+					ConnMethod.GET,false);
 //			HashMap<String, String> params = new HashMap<String, String>();
 //			params.put(RequestLogin.KEY_PHONE_NUMBER, phone);
 //			params.put(RequestLogin.KEY_PASSWORD, password);

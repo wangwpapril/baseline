@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.intrepid.travel.MyApplication;
 import com.intrepid.travel.R;
+import com.intrepid.travel.utils.Common;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -47,6 +48,8 @@ public abstract class BaseActivity extends Activity implements OnClickListener{
 		activityManager=(ActivityManager)this.getSystemService(Context.ACTIVITY_SERVICE);
 		MyApplication.getInstance().addActivity(this);
 		context = this;
+		Common.context = this;
+
 
 	}
 	
@@ -82,5 +85,16 @@ public abstract class BaseActivity extends Activity implements OnClickListener{
 		onBackPressed();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Common.context = this;
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Common.context = null;
+	}
 	
 }

@@ -69,11 +69,12 @@ public class ControlerContentTask extends
 		try {
 			switch (connMethod) {
 			case GET:
-//				rh.setResult(SimpleHttpClient.get(url, getParams(params)));
+				PostParameter[] postParams = null;
+				rh.setResult(SimpleHttpClient.doGet(postParams, url, 6000));
 				break;
 			case POST:
 //				rh.setResult(SimpleHttpClient.post(url, getParams(params)));
-				rh.setResult(SimpleHttpClient.doHttpPost(json, url));
+				rh.setResult(SimpleHttpClient.post(json, url, 6000));
 					
 				break;
 			}

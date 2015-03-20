@@ -88,7 +88,6 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 		MyApplication.loginStatus = loginStatus;
 	}
 	
-	//娣诲姞Activity鍒板鍣ㄤ腑
 	public void addActivity(Activity activity){
 		activityList.add(activity);
 	}

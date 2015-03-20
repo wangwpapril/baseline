@@ -24,11 +24,6 @@ public class SharedPreferencesHelper{
 		userSettings = this.context.getSharedPreferences(userName, Activity.MODE_PRIVATE);
 	}
 	
-	/**
-	 * 根据传入的Preference Key返回系统偏好设置中对应的Value
-	 * @param key    	Preferences Key 唯一标示一个配置项
-	 * @return
-	 */
 	public String getPreferenceValue(String key){
 		String returnValue = "";
 		try {
@@ -41,15 +36,9 @@ public class SharedPreferencesHelper{
 		return returnValue;
 	}
 		
-	/**
-	 * 保存全局的偏好配置(与用户无关)
-	 * @param key		Preferences Key 唯一标示一个配置项
-	 * @param pType	Preference支持多种配置数据类型：Boolean/Int/Float/Long/String
-	 * @param value	Preference配置项对应值
-	 */
+
 	public boolean SaveCommonPreferenceSettings(String key,PreferenceType pType,String value){
 		try{
-			//settings=this.context.getSharedPreferences("systemuser", Activity.MODE_PRIVATE);
 			editor = settings.edit();		
 			switch(pType){
 				case Boolean :
@@ -79,11 +68,6 @@ public class SharedPreferencesHelper{
 	}
 	
 	
-	/**
-	 * 根据传入的Preference Key返回用户偏好设置中对应的Value
-	 * @param key    	Preferences Key 唯一标示一个配置项
-	 * @return
-	 */
 	public String GetUserPreferenceValue(String key){
 		String returnValue = "";
 		try {
@@ -96,13 +80,6 @@ public class SharedPreferencesHelper{
 		
 		return returnValue;
 	}
-	/**
-	 * 负责保存用户自己的偏好设置(每个用户都以一个专用的偏好设置文件)
-	 * @param key		     	Preferences Key 唯一标示一个配置项
-	 * @param pType	     	Preference支持多种配置数据类型：Boolean/Int/Float/Long/String
-	 * @param value			Preference配置项对应值
-	 * @return
-	 */
 	public boolean SaveUserPreferenceSettings(String key,PreferenceType pType,String value){
 		try{
 			editor = userSettings.edit();		
