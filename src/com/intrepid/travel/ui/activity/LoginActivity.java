@@ -2,6 +2,9 @@ package com.intrepid.travel.ui.activity;
 
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.mitijson.Gson;
 import com.intrepid.travel.Enums.ConnMethod;
 import com.intrepid.travel.MyApplication;
@@ -115,9 +118,9 @@ public class LoginActivity extends BaseActivity {
 				}
 			};
 			ControlerContentTask cct = new ControlerContentTask(
-//					"https://api.intrepid247.com/v1/users/login", icc,
-					"https://api.intrepid247.com/v1/destinations?short_list=true&token=ce6f284088d8c6bf88802f51f6d49776", icc,
-					ConnMethod.GET,false);
+					"https://api.intrepid247.com/v1/users/login", icc,
+//					"https://api.intrepid247.com/v1/destinations?short_list=true&token=ce6f284088d8c6bf88802f51f6d49776", icc,
+					ConnMethod.POST,false);
 //			HashMap<String, String> params = new HashMap<String, String>();
 //			params.put(RequestLogin.KEY_PHONE_NUMBER, phone);
 //			params.put(RequestLogin.KEY_PASSWORD, password);
@@ -133,6 +136,31 @@ public class LoginActivity extends BaseActivity {
 			demo.setUser(user);
 			Gson gson = new Gson();
 			String parasString = gson.toJson(demo);
+			
+				JSONObject user1 = new JSONObject();
+				try {
+					user1.put("email", "wwang@peakcontact.com");
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					user1.put("password", "12345678");
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				JSONObject jo = new JSONObject();
+				try {
+					jo.put("user", user1);
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				parasString = jo.toString();
+				
+
 			
 			cct.execute(parasString);
 
