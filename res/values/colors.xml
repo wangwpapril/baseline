@@ -45,5 +45,9 @@
     <color name="progress_bg">#00d2ff</color>
     
     <color name="font_color">#ff6900</color>
+    
+    <color name="circle">#8f8f8f</color>
+    <color name="circle_active">#ffa500</color>
+    
      
 </resources>
