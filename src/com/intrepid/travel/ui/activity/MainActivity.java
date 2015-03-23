@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.List;
 
 import com.intrepid.travel.MyApplication;
+import com.intrepid.travel.R;
 import com.intrepid.travel.ui.fragment.BaseFragment;
+import com.intrepid.travel.ui.fragment.CustomFragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -94,7 +96,7 @@ public class MainActivity extends FragmentActivity {
 	private RelativeLayout mBehindMenu;
 	private View mWelcomePage;
 	
-	private IDataSourceListener<DataType> mDataSourceListener = new IDataSourceListener<DataType>() {
+/*	private IDataSourceListener<DataType> mDataSourceListener = new IDataSourceListener<DataType>() {
 
 		@Override
 		public void onChange(DataType type) {
@@ -144,15 +146,15 @@ public class MainActivity extends FragmentActivity {
 		TextView txtView = (TextView) parentView.findViewById(R.id.txtViewNumber);
 		txtView.setText(item.getDisplayMsgCount());				
 	}
-
+*/
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogUtil.d(TAG, "onCreate");
+//		LogUtil.d(TAG, "onCreate");
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getSlidingMenu().setSlidingEnabled(false);
-		registerBroadcast();
-		mWebAPi = WebApi.getInstance(this);
+//		getSlidingMenu().setSlidingEnabled(false);
+//		registerBroadcast();
+/*		mWebAPi = WebApi.getInstance(this);
 		
 		PushManager.getInstance().initialize(this);
 		mSlideMenuAdapter = new SlideMenuAdapter(this, getResources().getStringArray(R.array.slide_menu_list), null);
@@ -160,22 +162,22 @@ public class MainActivity extends FragmentActivity {
 		mFragmentSquare = new SquareFragment();
 		mFragmentUserInfo = new UserInfoFragment();
 		mFragmentAttention = new AttentionFragment();
-		mFragmentCustom = new CustomFragment();
+*/		mFragmentCustom = new CustomFragment();
 		
 		mApp = (MyApplication) getApplication();
-		checkVersion();
+//		checkVersion();
 		
-		initGetui();
+	//	initGetui();
 		createUI();
-		if(mWelcomePage instanceof ImageView){
+/*		if(mWelcomePage instanceof ImageView){
 			mUIHandler.sendEmptyMessageDelayed(0, 2000);
-		}
-		switchFramgment(mFragmentSquare);
+		}*/
+		switchFramgment(mFragmentCustom);
 
 		
-		mFinalBitmap = FinalBitmap.create(this);
+//		mFinalBitmap = FinalBitmap.create(this);
 		mApp.addActivity(this);
-		if (isAuthroized()) {
+/*		if (isAuthroized()) {
 			getUserInfo();
 		}
 		mSlidingMenuIds = getResources().getIntArray(R.array.slide_menu_id_list);
@@ -195,9 +197,9 @@ public class MainActivity extends FragmentActivity {
 		mApp.registerDataListener(DataType.switch_myself_publish_tab, mDataSourceListener);
 		mApp.registerDataListener(DataType.switch_order_tab, mDataSourceListener);
 		mApp.registerDataListener(DataType.switch_square_tab, mDataSourceListener);
-	}
+*/	}
 
-	private void registerBroadcast(){
+/*	private void registerBroadcast(){
 		IntentFilter filter = new IntentFilter(BroadConstant.BROAD_RE_LOGIN);
 		registerReceiver(mReceiver, filter);
 	}
@@ -307,24 +309,24 @@ public class MainActivity extends FragmentActivity {
 		}
 		mWebAPi.postClientID(cid, null);
 	}
-	
+*/	
 	@Override
 	protected void onStop() {
 		super.onStop();
-		mApp.cachedVideoAttrs();
+//		mApp.cachedVideoAttrs();
 	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
-		if (isAuthroized()) {
-			jumpActivity(intent);
-		}
+//		if (isAuthroized()) {
+//			jumpActivity(intent);
+	//	}
 	}
 
 	@Override
 	protected void onStart() {
-		super.onStart();
+/*		super.onStart();
 		showUserAvatar(mApp.getOnlineUser());
 		boolean isShowOrderHint = PreferenceUtils.readBoolConfig(Constant.PreferKeys.KEY_NOTIFY_ORDER, this);
 		mViewOrderHint.setVisibility(isShowOrderHint ? View.VISIBLE : View.INVISIBLE);
@@ -356,30 +358,30 @@ public class MainActivity extends FragmentActivity {
 			}
 			PreferenceUtils.writeBoolConfig(Constant.PreferKeys.KEY_BACK_TO_SQUARE,false, this);
 		}
-	}
+*/	}
 
 	private void refreshAllData(){
-		mFragmentUserInfo = new UserInfoFragment();
-		mFragmentAttention = new AttentionFragment();
+//		mFragmentUserInfo = new UserInfoFragment();
+	//	mFragmentAttention = new AttentionFragment();
 		mFragmentCustom = new CustomFragment();
-		initGetui();
+//		initGetui();
 	}
 	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		LogUtil.d(TAG, "onDestory");
+/*		LogUtil.d(TAG, "onDestory");
 		unregisterBroadcast();
 		mApp.removeActivity(this);
 		mApp.unRegisterDataListener(mDataSourceListener);
-		// PreferenceUtils.RemoveStrConfig(Constant.PreferKeys.KEY_FIRST_LOGIN,
+*/		// PreferenceUtils.RemoveStrConfig(Constant.PreferKeys.KEY_FIRST_LOGIN,
 		// this);
 	}
 
 	@Override
 	public void onBackPressed() {
 		if ((SystemClock.elapsedRealtime() - exitTime) > 2000) {
-			ToastUtil.showToast(mApp, R.string.exist_app_hint);
+//			ToastUtil.showToast(mApp, R.string.exist_app_hint);
 			exitTime = SystemClock.elapsedRealtime();
 		} else {
  			quit();
@@ -387,16 +389,16 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	private void quit(){
-		DownloadManager.getInstante(this).cancelAllTask();
+/*		DownloadManager.getInstante(this).cancelAllTask();
 		DownloadManager.free();
 		
 		clearRecordVideo();
-		mApp.exit();
+*/		mApp.exit();
 		finish();
 	}
 	
 	private void clearRecordVideo(){
-		List<VideoInfoPost> mVideoList = mApp.getFinalDb().findAll(VideoInfoPost.class);
+/*		List<VideoInfoPost> mVideoList = mApp.getFinalDb().findAll(VideoInfoPost.class);
 		
 		File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), CameraHelper.FOLDER_NAME);
 		File[] allFile = mediaStorageDir.listFiles();
@@ -427,14 +429,14 @@ public class MainActivity extends FragmentActivity {
 			}
 		}
 		
-	}
+*/	}
 	
 	private Handler mUIHandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			int what = msg.what;
 			switch(what){
 			case 0:
-				mMainLayout.removeView(mWelcomePage);
+/*				mMainLayout.removeView(mWelcomePage);
 				if(!PreferenceUtils.readBoolConfig(Constant.PreferKeys.KEY_HAS_DISPLAY_SCRAWL, MainActivity.this, false)){
 					ScrawlDialog dialog = new ScrawlDialog(MainActivity.this);
 					dialog.show();
@@ -446,14 +448,14 @@ public class MainActivity extends FragmentActivity {
 				}else if(mWelcomePage instanceof ImageView){
 					CommonUtils.recycleImageView((ImageView)mWelcomePage);
 				}
-				break;
+*/				break;
 			}
 		};
 	};
 	
 	void createUI() {
 		mMainLayout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.main, null);
-		mBehindMenu = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.fragment_behindmenu, null);
+/*		mBehindMenu = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.fragment_behindmenu, null);
 			
 		if(!this.getIntent().getBooleanExtra(LoginActivity.FLAG_LOGIN, false)){
 			if(!PreferenceUtils.readBoolConfig(Constant.PreferKeys.KEY_HAS_DISPLAY_GUIDE_PAGE, MainActivity.this, false)){
@@ -471,14 +473,14 @@ public class MainActivity extends FragmentActivity {
 			}
 			mMainLayout.addView(mWelcomePage);
 		}
-		
+*/		
 		setContentView(mMainLayout);
 		
-		setBehindContentView(mBehindMenu);
+//		setBehindContentView(mBehindMenu);
 		mViewOrderHint = mMainLayout.findViewById(R.id.tabVideoCustomHint);
 		mViewMsgHint = mMainLayout.findViewById(R.id.tabPersonHint);
 
-		View view = mBehindMenu.findViewById(R.id.viewGrpUserInfo);
+/*		View view = mBehindMenu.findViewById(R.id.viewGrpUserInfo);
 		view.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -543,7 +545,7 @@ public class MainActivity extends FragmentActivity {
 				}
 			}
 		});
-
+*/
 		mTabViewPlaza = (ImageView) mMainLayout.findViewById(R.id.tabPlaza);
 		mTabViewPerson = (ImageView) mMainLayout.findViewById(R.id.tabPerson);
 		mTabViewCustom = (ImageView) mMainLayout.findViewById(R.id.tabVideoCustom);
@@ -554,7 +556,7 @@ public class MainActivity extends FragmentActivity {
 		mTabViewPlaza.setOnClickListener(mOnClickListener);
 		mTabViewCustom.setOnClickListener(mOnClickListener);
 
-		mTabViewPlaza.setImageResource(R.drawable.plaza_active);
+//		mTabViewPlaza.setImageResource(R.drawable.plaza_active);
 		
 	}
 
@@ -567,7 +569,7 @@ public class MainActivity extends FragmentActivity {
 //			if (isShowOrderHint && v == mTabViewCustom) {
 //				mApp.notifyDataChanged(DataType.accpet_order);
 //			}
-			mViewOrderHint.setVisibility(View.INVISIBLE);
+/*			mViewOrderHint.setVisibility(View.INVISIBLE);
 			if (v == mCurrTabView) {
 				mCurrFragment.onRefreshData();
 				return;
@@ -604,7 +606,7 @@ public class MainActivity extends FragmentActivity {
 				getSlidingMenu().setSlidingEnabled(false);
 			}
 			mCurrTabView = v;
-		}
+		*/}
 	};
 
 	/**
@@ -617,7 +619,7 @@ public class MainActivity extends FragmentActivity {
 		ft.commitAllowingStateLoss();
 		mCurrFragment = fragment;
 	}
-
+/*
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -692,7 +694,7 @@ public class MainActivity extends FragmentActivity {
 	 * According data including in a intent, we knows that which activity we should start.
 	 * @param intent
 	 */
-	private void jumpActivity(Intent intent) {
+/*	private void jumpActivity(Intent intent) {
 		String data = intent.getStringExtra(BaseActivity.EXTRA_PUSH);
 		if (!TextUtils.isEmpty(data)) {
 			PushInfo info = GsonUtil.jsonToObject(PushInfo.class, data);
@@ -712,5 +714,5 @@ public class MainActivity extends FragmentActivity {
 		}
 
 	}
-
+*/
 }

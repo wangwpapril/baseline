@@ -1,0 +1,138 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tabBar"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/default568h2x" />
+
+    <LinearLayout
+        android:id="@+id/tabBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/pink"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/tabPlaza"
+                android:layout_width="match_parent"
+                android:layout_height="27dip"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                 />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/tabVideoCustom"
+                android:layout_width="match_parent"
+                android:layout_height="27dip"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                 />
+
+            <FrameLayout
+                android:id="@+id/tabVideoCustomHint"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_gravity="top|right"
+                 >
+
+                <TextView
+                    android:id="@+id/txtViewNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="99"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_mini" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:gravity="center" >
+
+            <RadioButton
+                android:layout_width="35dip"
+                android:layout_height="35dip"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/tabVideoAt"
+                android:layout_width="match_parent"
+                android:layout_height="27dip"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                 />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/tabPerson"
+                android:layout_width="match_parent"
+                android:layout_height="27dip"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                 />
+
+            <FrameLayout
+                android:id="@+id/tabPersonHint"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_gravity="top|right"
+                 >
+
+                <TextView
+                    android:id="@+id/txtViewNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1111"
+                    android:textColor="@color/white"
+                    />
+            </FrameLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnCapture"
+        android:layout_width="74dip"
+        android:layout_height="74dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+         />
+
+</RelativeLayout>

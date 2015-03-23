@@ -10,7 +10,7 @@
     android:layout_height="@dimen/custom_title_height"
     layout="@layout/custom_title" />
         
-    <ScrollView
+    <RelativeLayout
 	    android:id="@+id/scrollView1"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent">
@@ -115,7 +115,7 @@
 	        
  			<FrameLayout
  			    	android:id="@+id/LoginHelp"
- 			    	android:layout_marginBottom="10dip"
+ 			    	android:layout_marginTop="50dip"
  			    	android:orientation="horizontal"
 				    android:layout_width="match_parent"
 				    android:layout_height="match_parent"
@@ -140,6 +140,6 @@
 				</FrameLayout>
 
 			    </LinearLayout>
-	</ScrollView>
+	</RelativeLayout>
 
 </LinearLayout>

@@ -3,7 +3,10 @@ package com.intrepid.travel.ui.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.intrepid.travel.R;
 import com.intrepid.travel.ui.control.TabNaviBar;
+import com.intrepid.travel.ui.control.TabNaviBar.OnTabChangedListener;
+import com.intrepid.travel.ui.control.TabNaviBar.TabAdapter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,21 +41,21 @@ public class CustomFragment extends BaseFragment {
 
 	private TabNaviBar mTabNaviBar;
 
-	private List<CustomOrder> mOrderList = new ArrayList<CustomOrder>();
-	private List<CustomOrder> mAcceptOrderList = new ArrayList<CustomOrder>();
+	private List<String> mOrderList = new ArrayList<String>();
+	private List<String> mAcceptOrderList = new ArrayList<String>();
 	
 
 	private MyOrderAdapter mOrderAdapter;
 	
 	private MyOrderAdapter mAcceptOrderAdapter;
 
-	private PullToRefreshListView mAcceptOrderListView;
-	private PullToRefreshListView mOrderListView;
+	private ListView mAcceptOrderListView;
+	private ListView mOrderListView;
 
 	private int mCurrAcceptIndex = 0;
 	private int mCurrOrderIndex = 0;
 	
-	private UserInfo mUserinfo;
+//	private UserInfo mUserinfo;
 	
 	private View mRootView;
 	
@@ -62,11 +65,11 @@ public class CustomFragment extends BaseFragment {
 	
 	private TextView mTxtViewEmptyAcceptComment;
 		
-	private PullToRefreshScrollView mViewGrpAcceptOrder;
+//	private PullToRefreshScrollView mViewGrpAcceptOrder;
 	
-	private PullToRefreshScrollView mViewGrpEmptyOrder;
+	//private PullToRefreshScrollView mViewGrpEmptyOrder;
 	
-	private IDataSourceListener<DataType> mDataSourceListtener = new IDataSourceListener<DataType>() {
+/*	private IDataSourceListener<DataType> mDataSourceListtener = new IDataSourceListener<DataType>() {
 
 		@Override
 		public void onChange(DataType type) {
@@ -91,16 +94,21 @@ public class CustomFragment extends BaseFragment {
 			}
 		}
 	};
-	
+*/	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mUserinfo = mApp.getOnlineUser();
+//		mUserinfo = mApp.getOnlineUser();
+		mOrderList.add("test1");
+		mOrderList.add("test2");
+		mAcceptOrderList.add("test3");
+		mAcceptOrderList.add("test4");
 		mOrderAdapter = new MyOrderAdapter(mOrderList, 0);
 		mAcceptOrderAdapter = new MyOrderAdapter(mAcceptOrderList, 1);
-		mApp.registerDataListener(DataType.order, mDataSourceListtener);
-		mApp.registerDataListener(DataType.accpet_order, mDataSourceListtener);
-		mApp.registerDataListener(DataType.video_custom_posted, mDataSourceListtener);
+
+//		mApp.registerDataListener(DataType.order, mDataSourceListtener);
+	//	mApp.registerDataListener(DataType.accpet_order, mDataSourceListtener);
+		//mApp.registerDataListener(DataType.video_custom_posted, mDataSourceListtener);
 	}
 		
 	
@@ -114,7 +122,7 @@ public class CustomFragment extends BaseFragment {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		mApp.unRegisterDataListener(mDataSourceListtener);
+//		mApp.unRegisterDataListener(mDataSourceListtener);
 	}
 
 	@Override
@@ -124,14 +132,15 @@ public class CustomFragment extends BaseFragment {
 			return mRootView;
 		}
 		mRootView = inflater.inflate(R.layout.fragment_custom, null);
+//		mRootView = LayoutInflater.from(this).inflate(R.layout.main, null);
 		
 		TextView txtView = (TextView) mRootView.findViewById(R.id.txtViewTitleCenter);
-		txtView.setText(R.string.customize);
+		txtView.setText("testing");
 				
 		LinearLayout leftLayout = (LinearLayout) mRootView.findViewById(R.id.btnTitleLeftLayout);
 		leftLayout.setVisibility(View.GONE);
 		
-		ImageView btnTitleRight = (ImageView) mRootView.findViewById(R.id.btnTitleRight);
+/*		ImageView btnTitleRight = (ImageView) mRootView.findViewById(R.id.btnTitleRight);
 		if (mUserinfo.isSuperAnchor()) {
 			btnTitleRight.setVisibility(View.GONE);
 		} else {
@@ -148,7 +157,7 @@ public class CustomFragment extends BaseFragment {
 				startActivity(intent);			
 			}
 		});
-		
+*/		
 		mViewPager = (ViewPager) mRootView.findViewById(R.id.viewpager);
 
 		mViewPager.setAdapter(new MyPagerAdapter());
@@ -181,7 +190,9 @@ public class CustomFragment extends BaseFragment {
 			}
 		});
 
-		final String[] tabs = getResources().getStringArray(R.array.custom_tabs);
+//		final String[] tabs = getResources().getStringArray(R.array.custom_tabs);
+		final String[] tabs = {"test1", "test2"};
+		
 		mTabNaviBar.setAdapter(new TabAdapter() {
 
 			@Override
@@ -208,7 +219,7 @@ public class CustomFragment extends BaseFragment {
 		return mRootView;
 	}
 
-	void getAcceptOrderList(final int pageIndex) {
+/*	void getAcceptOrderList(final int pageIndex) {
 		mWebApi.getCustomOrders(1, pageIndex, Constant.PAGE_COUNT, new IResponse<List<CustomOrder>>() {
 
 			@Override
@@ -343,27 +354,21 @@ public class CustomFragment extends BaseFragment {
 			}
 		});
 	}
-
+*/
 	public interface OnMenuItemClickListner {
 		void onClick();
 	}
 
 	
-	void clearOrderHintCount(){
-		HintInfo info= mApp.getHintInfo();
-		info.setOrderCount(0);
-		mApp.setHintInfo(info);
-	}
 	
 	@Override
 	public void onStart() {
 		super.onStart();
-		clearOrderHintCount();
-		int orderType = PreferenceUtils.readIntConfig(Constant.PreferKeys.KEY_NOTIFY_ORDER_TYPE, mActivity, -1);
-		if (orderType == PushInfo.TYPE_ORDER_FANS){			
+/*		int orderType = PreferenceUtils.readIntConfig(Constant.PreferKeys.KEY_NOTIFY_ORDER_TYPE, mActivity, -1);
+		if (orderType == PushInfo.TYPE_ORDER_FANS){		*/	
 			mTabNaviBar.move(1);
 			onRefreshData();
-		}else if(orderType == PushInfo.TYPE_ORDER_MINE){
+/*		}else if(orderType == PushInfo.TYPE_ORDER_MINE){
 			mTabNaviBar.move(0);
 			onRefreshData();
 		}
@@ -376,7 +381,7 @@ public class CustomFragment extends BaseFragment {
 			mTxtViewEmptyAcceptComment.setText(R.string.empty_accept_order_comment_is_anchor);
 		} else {
 			mTxtViewEmptyAcceptComment.setText(R.string.empty_accept_order_comment);
-		}				
+		}	*/			
 	}
 	
 	@Override
@@ -388,14 +393,14 @@ public class CustomFragment extends BaseFragment {
 		}
 		if (mViewPager.getCurrentItem() == 1 && mAcceptOrderListView != null) {
 			mAcceptOrderListView.setVisibility(View.VISIBLE);
-			mViewGrpAcceptOrder.setVisibility(View.GONE);
-			mAcceptOrderListView.doPullRefreshing(true);
+//			mViewGrpAcceptOrder.setVisibility(View.GONE);
+//			mAcceptOrderListView.doPullRefreshing(true);
 		}
 		
 		if (mViewPager.getCurrentItem() == 0 && mOrderListView != null) {
-			mViewGrpEmptyOrder.setVisibility(View.GONE);
+//			mViewGrpEmptyOrder.setVisibility(View.GONE);
 			mOrderListView.setVisibility(View.VISIBLE);
-			mOrderListView.doPullRefreshing(true);
+//			mOrderListView.doPullRefreshing(true);
 		}
 	}
 
@@ -406,7 +411,7 @@ public class CustomFragment extends BaseFragment {
 		MyPagerAdapter() {			
 			acceptOrderView = mLayoutInflater.inflate(R.layout.adapter_viewpager_my_custom_order, null);
 						
-			mBtnApplyAnchor = (TextView) acceptOrderView.findViewById(R.id.btnCustomVideo);
+/*			mBtnApplyAnchor = (TextView) acceptOrderView.findViewById(R.id.btnCustomVideo);
 			mBtnApplyAnchor.setVisibility(mApp.getOnlineUser().isAnchor() ? View.GONE : View.VISIBLE);
 			mBtnApplyAnchor.setText(R.string.menu_apply_anchor);
 			mBtnApplyAnchor.setOnClickListener(new OnClickListener() {
@@ -417,10 +422,10 @@ public class CustomFragment extends BaseFragment {
 					startActivity(intent);					
 				}
 			});
+			*/
+			mAcceptOrderListView = (ListView) acceptOrderView.findViewById(R.id.pullToRefreshListViewCustom);			
 			
-			mAcceptOrderListView = (PullToRefreshListView) acceptOrderView.findViewById(R.id.pullToRefreshListViewCustom);			
-			
-			mAcceptOrderListView.getRefreshableView().setOnItemClickListener(new OnItemClickListener() {
+/*			mAcceptOrderListView.getRefreshableView().setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -449,8 +454,8 @@ public class CustomFragment extends BaseFragment {
 					
 				}
 			});
-			
-			mViewGrpAcceptOrder = (PullToRefreshScrollView) acceptOrderView.findViewById(R.id.viewGrpEmpty);
+*/			
+/*			mViewGrpAcceptOrder = (PullToRefreshScrollView) acceptOrderView.findViewById(R.id.viewGrpEmpty);
 
 			mViewGrpAcceptOrder.setOnRefreshListener(new OnRefreshListener<ViewGroup>() {
 
@@ -473,9 +478,9 @@ public class CustomFragment extends BaseFragment {
 			mTxtViewEmptyAcceptComment.setText(R.string.empty_accept_order_comment);
 			
 			mTxtViewEmptyAcceptComment.setVisibility(mApp.getOnlineUser().isAnchor() ? View.GONE : View.VISIBLE);
-		
+*/		
 			orderView = mLayoutInflater.inflate(R.layout.adapter_viewpager_my_custom_order, null);
-			mViewGrpEmptyOrder = (PullToRefreshScrollView) orderView.findViewById(R.id.viewGrpEmpty);	
+/*			mViewGrpEmptyOrder = (PullToRefreshScrollView) orderView.findViewById(R.id.viewGrpEmpty);	
 			mViewGrpEmptyOrder.setOnRefreshListener(new OnRefreshListener<ViewGroup>() {
 
 				@Override
@@ -490,8 +495,8 @@ public class CustomFragment extends BaseFragment {
 					
 				}
 			});
-			
-			txtView = (TextView) orderView.findViewById(R.id.txtViewEmptyTitle);
+*/			
+/*			txtView = (TextView) orderView.findViewById(R.id.txtViewEmptyTitle);
 			txtView.setText(R.string.empty_order_title);
 			txtView = (TextView) orderView.findViewById(R.id.txtViewEmptyContent);
 			txtView.setText(R.string.empty_order_comment);			
@@ -505,10 +510,10 @@ public class CustomFragment extends BaseFragment {
 					startActivity(intent);
 				}
 			});
-			
-			mOrderListView = (PullToRefreshListView) orderView.findViewById(R.id.pullToRefreshListViewCustom);
+*/			
+			mOrderListView = (ListView) orderView.findViewById(R.id.pullToRefreshListViewCustom);
 
-			mOrderListView.getRefreshableView().setOnItemClickListener(new OnItemClickListener() {
+/*			mOrderListView.getRefreshableView().setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -543,7 +548,7 @@ public class CustomFragment extends BaseFragment {
 
 				}
 			});
-
+*/
 		}
 
 		@Override
@@ -556,11 +561,13 @@ public class CustomFragment extends BaseFragment {
 			View result = position == 0 ? orderView : acceptOrderView;
 			container.addView(result);
 			if (position == 0) {
-				mOrderListView.getRefreshableView().setAdapter(mOrderAdapter);								
-				mOrderListView.doPullRefreshing(true);				
+				mOrderListView.setAdapter(mOrderAdapter);								
+	//			mOrderListView.getRefreshableView().setAdapter(mOrderAdapter);								
+//				mOrderListView.doPullRefreshing(true);				
 			} else {								
-				mAcceptOrderListView.getRefreshableView().setAdapter(mAcceptOrderAdapter);
-				mAcceptOrderListView.doPullRefreshing(true);							
+				mAcceptOrderListView.setAdapter(mAcceptOrderAdapter);
+	//			mAcceptOrderListView.getRefreshableView().setAdapter(mAcceptOrderAdapter);
+//				mAcceptOrderListView.doPullRefreshing(true);							
 			}
 
 			return result;
@@ -576,17 +583,17 @@ public class CustomFragment extends BaseFragment {
 
 	class MyOrderAdapter extends BaseAdapter {
 		
-		private List<CustomOrder> mOrderList;
+		private List<String> mOrderList;
 		
 		private int orderType ;
 		
 		
-		MyOrderAdapter(List<CustomOrder> orderList, int orderType) {
+		MyOrderAdapter(List<String> orderList, int orderType) {
 			mOrderList = orderList;
 			this.orderType = orderType;
 		}
 
-		private String[] stateDscList = getResources().getStringArray(R.array.order_state_dsc);
+//		private String[] stateDscList = getResources().getStringArray(R.array.order_state_dsc);
 
 		@Override
 		public int getCount() {
@@ -594,7 +601,7 @@ public class CustomFragment extends BaseFragment {
 		}
 
 		@Override
-		public CustomOrder getItem(int position) {
+		public Object getItem(int position) {
 			return mOrderList.get(position);
 		}
 
@@ -607,17 +614,18 @@ public class CustomFragment extends BaseFragment {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
-				convertView = mLayoutInflater.inflate(R.layout.adapter_my_custom_order, null);
+				convertView = mLayoutInflater.inflate(R.layout.catagory_top_item, null);
 			}						
-			CustomOrder order = getItem(position);
+			
+			Object order = getItem(position);
 			
 			if (order == null){
 				return convertView;
 			}
 			
-			ImageView imgViewAvatar = (ImageView) convertView.findViewById(R.id.imgViewAvatar);
+			ImageView imgViewAvatar = (ImageView) convertView.findViewById(R.id.category_top_item_iv);
 			  
-			View viewGrpPrice= convertView.findViewById(R.id.viewGrpPriceIcon);
+/*			View viewGrpPrice= convertView.findViewById(R.id.viewGrpPriceIcon);
 			if (orderType == 1) {
 				viewGrpPrice.setVisibility(View.VISIBLE);
 				imgViewAvatar.setVisibility(View.GONE);
@@ -627,12 +635,12 @@ public class CustomFragment extends BaseFragment {
 				if(order.getUserInfo() != null)
 					mFinalBitmap.display(imgViewAvatar, order.getUserInfo().getAvatarUrl());
 			}
-									
-			TextView txtView = (TextView) convertView.findViewById(R.id.txtViewOrderName);
-			if (order.getTitle() != null) {
-				txtView.setText(order.getTitle());
-			}			
-			txtView = (TextView) convertView.findViewById(R.id.txtViewOrderPrice);
+*/									
+			TextView txtView = (TextView) convertView.findViewById(R.id.category_top_item_name);
+//			if (order.getTitle() != null) {
+				txtView.setText("test");
+	//		}			
+/*			txtView = (TextView) convertView.findViewById(R.id.txtViewOrderPrice);
 			txtView.setText((int)order.getPrice() + getString(R.string.price_unit));
 			
 			txtView = (TextView) convertView.findViewById(R.id.txtViewOrderPriceIcon);
@@ -661,7 +669,7 @@ public class CustomFragment extends BaseFragment {
 				txtView = (TextView) convertView.findViewById(R.id.txtViewUserName);
 				txtView.setText(user.getName());
 			}			
-			return convertView;
+*/			return convertView;
 		}
 
 	}
