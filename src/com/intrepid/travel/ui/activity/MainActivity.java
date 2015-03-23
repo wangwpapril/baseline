@@ -6,7 +6,7 @@ import java.util.List;
 import com.intrepid.travel.MyApplication;
 import com.intrepid.travel.R;
 import com.intrepid.travel.ui.fragment.BaseFragment;
-import com.intrepid.travel.ui.fragment.CustomFragment;
+import com.intrepid.travel.ui.fragment.OverviewFragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -62,7 +62,7 @@ public class MainActivity extends FragmentActivity {
 
 //	private BaseFragment mFragmentAttention;
 
-	private BaseFragment mFragmentCustom;
+	private BaseFragment mFragmentOverview;
 
 
 	private TextView mTxtViewLoginState;
@@ -73,7 +73,6 @@ public class MainActivity extends FragmentActivity {
 	private MyApplication mApp;
 
 
-	private int[] mSlidingMenuIds;
 
 	private ImageView mTabViewPlaza;
 	private ImageView mTabViewPerson;
@@ -162,7 +161,7 @@ public class MainActivity extends FragmentActivity {
 		mFragmentSquare = new SquareFragment();
 		mFragmentUserInfo = new UserInfoFragment();
 		mFragmentAttention = new AttentionFragment();
-*/		mFragmentCustom = new CustomFragment();
+*/		mFragmentOverview = new OverviewFragment();
 		
 		mApp = (MyApplication) getApplication();
 //		checkVersion();
@@ -172,7 +171,7 @@ public class MainActivity extends FragmentActivity {
 /*		if(mWelcomePage instanceof ImageView){
 			mUIHandler.sendEmptyMessageDelayed(0, 2000);
 		}*/
-		switchFramgment(mFragmentCustom);
+		switchFramgment(mFragmentOverview);
 
 		
 //		mFinalBitmap = FinalBitmap.create(this);
@@ -363,7 +362,7 @@ public class MainActivity extends FragmentActivity {
 	private void refreshAllData(){
 //		mFragmentUserInfo = new UserInfoFragment();
 	//	mFragmentAttention = new AttentionFragment();
-		mFragmentCustom = new CustomFragment();
+		mFragmentOverview = new OverviewFragment();
 //		initGetui();
 	}
 	
@@ -477,8 +476,8 @@ public class MainActivity extends FragmentActivity {
 		setContentView(mMainLayout);
 		
 //		setBehindContentView(mBehindMenu);
-		mViewOrderHint = mMainLayout.findViewById(R.id.tabVideoCustomHint);
-		mViewMsgHint = mMainLayout.findViewById(R.id.tabPersonHint);
+//		mViewOrderHint = mMainLayout.findViewById(R.id.tabVideoCustomHint);
+	//	mViewMsgHint = mMainLayout.findViewById(R.id.tabPersonHint);
 
 /*		View view = mBehindMenu.findViewById(R.id.viewGrpUserInfo);
 		view.setOnClickListener(new OnClickListener() {
@@ -546,7 +545,7 @@ public class MainActivity extends FragmentActivity {
 			}
 		});
 */
-		mTabViewPlaza = (ImageView) mMainLayout.findViewById(R.id.tabPlaza);
+/*		mTabViewPlaza = (ImageView) mMainLayout.findViewById(R.id.tabPlaza);
 		mTabViewPerson = (ImageView) mMainLayout.findViewById(R.id.tabPerson);
 		mTabViewCustom = (ImageView) mMainLayout.findViewById(R.id.tabVideoCustom);
 		mTabViewAtteton = (ImageView) mMainLayout.findViewById(R.id.tabVideoAt);
@@ -555,7 +554,7 @@ public class MainActivity extends FragmentActivity {
 		mTabViewAtteton.setOnClickListener(mOnClickListener);
 		mTabViewPlaza.setOnClickListener(mOnClickListener);
 		mTabViewCustom.setOnClickListener(mOnClickListener);
-
+*/
 //		mTabViewPlaza.setImageResource(R.drawable.plaza_active);
 		
 	}

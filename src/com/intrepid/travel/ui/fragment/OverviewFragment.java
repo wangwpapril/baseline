@@ -27,13 +27,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-/**
- * Show a custom video list and order list.
- *
- */
-public class CustomFragment extends BaseFragment {
+
+public class OverviewFragment extends BaseFragment {
 	
-	private final static String TAG = CustomFragment.class.getSimpleName();
+	private final static String TAG = OverviewFragment.class.getSimpleName();
 	
 	private LayoutInflater mLayoutInflater;
 
@@ -99,8 +96,10 @@ public class CustomFragment extends BaseFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 //		mUserinfo = mApp.getOnlineUser();
+		for (int i=0;i<10;i++){
 		mOrderList.add("test1");
 		mOrderList.add("test2");
+		}
 		mAcceptOrderList.add("test3");
 		mAcceptOrderList.add("test4");
 		mOrderAdapter = new MyOrderAdapter(mOrderList, 0);

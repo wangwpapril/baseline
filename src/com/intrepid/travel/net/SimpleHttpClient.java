@@ -62,14 +62,6 @@ public class SimpleHttpClient {
 	private static int retryCount = 1;
 
 	
-	/**
-	 * Post����
-	 * @param postParams
-	 * @param connectionUrl
-	 * @param connecTimeout
-	 * @return
-	 * @throws XmcException 
-	 */
 	public static String doPost(PostParameter[] postParams,String connectionUrl,int connectTimeout) throws Exception{
 		NetStatus netStatus = MyApplication.getNetStatus();
 		if(netStatus == NetStatus.Disable){
@@ -108,7 +100,6 @@ public class SimpleHttpClient {
 
 				if (responseCode != OK) {
 					if (responseCode < INTERNAL_SERVER_ERROR || retriedCount == retryCount)
-							//throw new XmcException(getCause(responseCode) + "\n" + response.asString(), responseCode);
 						throw new Exception(getCause(responseCode));
 				} else {break;}				
 			}catch(ConnectTimeoutException e){
@@ -122,14 +113,6 @@ public class SimpleHttpClient {
 		return response.asString();
 	}
 
-	/**
-	 * Get����
-	 * @param getParams
-	 * @param connectionUrl
-	 * @param connecTimeout
-	 * @return
-	 * @throws XmcException
-	 */
 	public static String doGet(PostParameter[] getParams, String connectionUrl,int connectTimeout) throws Exception{
 		NetStatus netStatus = MyApplication.getNetStatus();
 		if(netStatus == NetStatus.Disable){
@@ -176,14 +159,7 @@ public class SimpleHttpClient {
 		
 		return response.asString();
 	}
-	/**
-	 * Json��ʽ��POST����
-	 * @param entity
-	 * @param connectionUrl
-	 * @param connectTimeout
-	 * @return
-	 * @throws XmcException
-	 */
+
 	public static String post(String entity, String connectionUrl,
 			int connectTimeout) throws Exception{
 		int retriedCount = 0;
