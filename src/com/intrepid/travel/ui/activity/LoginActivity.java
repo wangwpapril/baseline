@@ -55,8 +55,8 @@ public class LoginActivity extends BaseActivity {
 		signUp = (TextView) findViewById(R.id.sign_up);
 		
 		imBtnSignIn.setOnClickListener(this);
-//		editTextPassword.setTransformationMethod(PasswordTransformationMethod
-	//			.getInstance());
+		editTextPassword.setTransformationMethod(PasswordTransformationMethod
+				.getInstance());
 
 
 	}

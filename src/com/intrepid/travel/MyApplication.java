@@ -22,7 +22,7 @@ import android.util.Log;
 public class MyApplication extends Application implements UncaughtExceptionHandler{
     
 	public static String TAG="Travel Smart Application";
-	public static boolean isStop=false;
+//	public static boolean isStop=false;
 //	public User currentUserInfo = null;
 //	private UserService userService = null;
 	private static DeviceInfoHelper deviceInfoHelper =null;
@@ -31,7 +31,7 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 	
 	private static LoginStatus loginStatus = null;		
 	private static NetStatus netStatus = null;									
-	private static String sessionId;								
+	private static String userId;								
 	public static Object mLock;
 	
 
@@ -50,7 +50,7 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 			}
 		}
 		
-		MyApplication.isStop=true;
+//		MyApplication.isStop=true;
 		
 		
 //		Intent locationIntent = new Intent(this, LocationService.class);
@@ -60,16 +60,17 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 	}
 	
 	public DeviceInfoHelper getDeviceInfoHelper(){
-		deviceInfoHelper = new DeviceInfoHelper();
+		if(deviceInfoHelper == null)
+			deviceInfoHelper = new DeviceInfoHelper();
 		return deviceInfoHelper;
 	}
 	
-	public static String getSessionId() {
-		return sessionId;
+	public static String getUserId() {
+		return userId;
 	}
 
-	public static void setSessionId(String sessionId) {
-		MyApplication.sessionId = sessionId;
+	public static void setUserId(String userId) {
+		MyApplication.userId = userId;
 	}
 	
 	public static NetStatus getNetStatus() {
@@ -129,7 +130,7 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 //		loginStatus = LoginStatus.none;
 		activityList = new ArrayList<Activity>();
 				
-		isStop=false;
+//		isStop=false;
 		
 		Thread.setDefaultUncaughtExceptionHandler(this);  
 			
@@ -137,7 +138,7 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 
 	
 	public String getCurrentUser(){
-		return "test";
+		return userId;
 //		return currentUserInfo.getUsername();
 	}
 

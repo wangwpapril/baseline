@@ -12,11 +12,7 @@ import android.util.Log;
 
 public class Encrypt {
 	
-	/**
-	 * 
-	 * @param plaintext
-	 * @return
-	 */
+
 	public static String toMD5(String plaintext){
 		 MessageDigest md5 = null;
 		 try {
@@ -63,18 +59,12 @@ public class Encrypt {
 		} catch (NoSuchAlgorithmException e) {
 			Log.v("he--------------------------------ji", "toMd5(): " + e);
 			throw new RuntimeException(e);
-			// 05-20 09:42:13.697: ERROR/hjhjh(256):
-			// 5d5c87e61211ab7a4847f7408f48ac
 		}
 		
 		return new String(str);
 	}
 	
-	/**
-	 * 
-	 * @param filename
-	 * @return
-	 */
+
 	public static String toMd5(String filePath) {
 		InputStream inputStream;
 
@@ -107,7 +97,5 @@ public class Encrypt {
 		}
 		return sb.toString();
 	}
-
-
 
 }

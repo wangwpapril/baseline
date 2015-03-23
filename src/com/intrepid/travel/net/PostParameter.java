@@ -1,8 +1,6 @@
 package com.intrepid.travel.net;
 
-/*
- * ����
- */
+
 public class PostParameter {
 
 	private String name;

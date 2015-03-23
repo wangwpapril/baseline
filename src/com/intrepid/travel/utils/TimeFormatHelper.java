@@ -38,11 +38,7 @@ public class TimeFormatHelper {
 		return formatter.format(date);
 	}
 	
-	/**
-	 * 转换为字符串，时间格式mm:ss
-	 * @param date
-	 * @return
-	 */
+
 	public static String getFormatTimeV2(Date date) {
 		if (date == null)
 			return "";
@@ -58,11 +54,7 @@ public class TimeFormatHelper {
 		return formatter.format(date);
 	}
 	
-	/**
-	 * modify by SongQing ,增加从GMT 到本地时间的对应转换，解决显示GMT时间的问题
-	 * @param date
-	 * @return
-	 */
+
 	public static Date parse(String date){
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS Z");
 		Date temp = null;
@@ -79,11 +71,7 @@ public class TimeFormatHelper {
 		return temp;
 	}
 	
-	/**
-	 * 获取GMT时间，时间格式：20061218.094246.930+0800
-	 * @param date
-	 * @return
-	 */
+
 	public static String getGMTTime(Date date){
 		
 		if(date == null)
@@ -111,11 +99,6 @@ public class TimeFormatHelper {
 		return dateGMT;
 	}
 	
-	/**
-	 * 获取GMT时间，时间格式：20061218.094246.930+0800
-	 * @param date 传入时间：20061218.094246.930+0800
-	 * @return
-	 */
 	public static String getGMTTime(String date){
 		
 		Date temp = parse(date);
@@ -126,11 +109,6 @@ public class TimeFormatHelper {
 		return getGMTTime(temp);
 	}
 	
-	/**
-	 * 将毫秒转换为标准时间格式
-	 * @param ms  eg：1340590080000
-	 * @return
-	 */
 	public static String convertLongToDate(String ms){
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar calendar = Calendar.getInstance();
@@ -145,22 +123,15 @@ public class TimeFormatHelper {
 		}
 	}
 	
-	/**
-	 * 将标准时间格式转换为毫秒
-	 * @param ms  
-	 * @return
-	 */
 	public static long convertDateToLong(String ms){
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		try{
-			Date myDate=formatter.parse(ms);
-			
+			Date myDate=formatter.parse(ms);			
 
 			return myDate.getTime();
 		}catch(Exception e){
 			Logger.e(e);
-			Log.e("XINHUA'S PROJECT", e.toString());
 			return new Date().getTime();
 		}
 	}

@@ -15,13 +15,13 @@ public class SharedPreferencesHelper{
 	private SharedPreferences userSettings;
 	private SharedPreferences.Editor editor ;
 	private Context context;
-	private String userName;
+	private String userId;
 	
 	public SharedPreferencesHelper(Context context){
 		this.context = context;
 		settings=PreferenceManager.getDefaultSharedPreferences(context);
-		userName = MyApplication.getInstance().getCurrentUser();
-		userSettings = this.context.getSharedPreferences(userName, Activity.MODE_PRIVATE);
+		userId = MyApplication.getInstance().getCurrentUser();
+		userSettings = this.context.getSharedPreferences(userId, Activity.MODE_PRIVATE);
 	}
 	
 	public String getPreferenceValue(String key){

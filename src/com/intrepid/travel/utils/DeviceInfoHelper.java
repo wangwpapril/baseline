@@ -35,27 +35,20 @@ public class DeviceInfoHelper {
 
 	private TelephonyManager mTelephonyManager;
 	private Context mContext;
-	private static String ANDROID_DEFAULT_DEVICE_ID ="Android.IMEI.2012";
+	private static String ANDROID_DEFAULT_DEVICE_ID ="Android.IMEI.2015";
 	private static final int ERROR = -1;
 
 	public DeviceInfoHelper() {
 		this.mTelephonyManager = (TelephonyManager) MyApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
 		this.mContext = MyApplication.getInstance();
 	}
+
 	
-	/**
-	 * 鑾峰彇褰撳墠Android缁堢绾胯矾涓�殑鐢佃瘽鍙风爜
-	 * @return
-	 */
 	public String getPhoneNumberString(){
 		return mTelephonyManager.getLine1Number()==null?"":mTelephonyManager.getLine1Number();
 	}
 	
-	/**
-	 *  鍞竴鐨勮澶嘔D锛�  
-	 *  GSM鎵嬫満鐨�IMEI 鍜�CDMA鎵嬫満鐨�MEID,娌℃湁3G妯″潡鐨凱ad杩斿洖android璁惧鍙�
-	 * @return Return null if device ID is not available.   
-	 */
+
 	public String getDeviceId(){
 	 
 		String phoneDeviceID = mTelephonyManager.getDeviceId();
@@ -69,6 +62,7 @@ public class DeviceInfoHelper {
 		}		
 	}
 	
+
 	public String translateDeviceId(){
 		String deviceId=getDeviceId();
 		if(deviceId.length()>16){
@@ -77,19 +71,13 @@ public class DeviceInfoHelper {
 		return deviceId;
 		
 	}
-	/**
-	 *  璁惧鐨勮蒋浠剁増鏈彿锛�  
-	 *  渚嬪锛歵he IMEI/SV(software version) for GSM phones.  
-	 * @return Return null if the software version is not available.   
-	 */
+
+	
 	public String getDeviceSoftwareVersion(){
 		return mTelephonyManager.getDeviceSoftwareVersion();
 	}
 	
-	/**
-	 * 璁惧鐨勫睆骞曞垎杈ㄧ巼
-	 * @return  濡�00x480
-	 */
+
 	public String getDisplayMetrics(){
 		DisplayMetrics dm = new DisplayMetrics();
 		WindowManager mWindowManager = (WindowManager) this.mContext.getSystemService(Context.WINDOW_SERVICE);
@@ -98,36 +86,22 @@ public class DeviceInfoHelper {
 		return dm.heightPixels + "x" + dm.widthPixels;   
 	}
 	
-	/**
-	 * 杩斿洖褰撳墠鎵嬫満鐨勫瀷鍙�
-	 * @return 濡�Mailstone
-	 */
+
 	public String getDeviceModel(){
 		return  android.os.Build.MODEL;
 	}
 	
-	/**
-	 * 鑾峰彇璁惧绯荤粺SDK鐗堟湰鍙�
-	 * @return eg:8
-	 */
+
 	public static String getDeviceVersionSDK(){
 		return  android.os.Build.VERSION.SDK;
 	} 
 	
 	
-	/**
-	 * 鑾峰彇璁惧绯荤粺鍙戝竷鐗堟湰鍙�
-	 * @return   eg:2.3.3
-	 */
 	public static String getDeviceVersionRelease(){
 		return  android.os.Build.VERSION.RELEASE;
 	} 	
 	
-	/**
-	 * 杩斿洖褰撳墠绋嬪簭鐗堟湰鍚�
-	 * @param context
-	 * @return  android:versionCode="1" 	android:versionName="1.0" {1,1.0}
-	 */
+
 	public static String[] getAppVersionName(Context context) {     
 	   String version[] = new String[2];
 	   try {     
@@ -144,41 +118,34 @@ public class DeviceInfoHelper {
 	   return version;
 	} 
 	
-	/**
-	 * 鑾峰彇褰撳墠缃戠粶鐘舵�
-	 */
+
 	public NetStatus getNetStatus(){
 		ConnectivityManager connMgr = null;
 		NetworkInfo activeInfo = null;
 		
 		try {
 			connMgr = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-			activeInfo = connMgr.getActiveNetworkInfo(); 			//褰撳墠缃戠粶杩炴帴绫诲瀷鍒ゆ柇
+			activeInfo = connMgr.getActiveNetworkInfo(); 			
 		} catch (Exception e) {
 			Logger.e(e);
 		}
 		
-		if (activeInfo != null && activeInfo.isConnected()) {	//濡傛灉缃戠粶鍙敤(鏃犺浠�箞缃戠粶绫诲瀷)
+		if (activeInfo != null && activeInfo.isConnected()) {	
 			switch (activeInfo.getType()) {
-			case ConnectivityManager.TYPE_MOBILE:			//绉诲姩缃戠粶
+			case ConnectivityManager.TYPE_MOBILE:			
 				return NetStatus.MOBILE;
-			case ConnectivityManager.TYPE_WIFI:				//Wi-Fi缃戠粶
+			case ConnectivityManager.TYPE_WIFI:				
 				return NetStatus.WIFI;
 			default:	
 				return NetStatus.Disable;
 			}
 		}
-		else{		//缃戠粶涓嶅彲鐢�
+		else{	
 			return NetStatus.Disable;
 		}
 	}
 	
-
 	
-	 /**
-     * 鑾峰彇鎵嬫満鍐呴儴鍓╀綑瀛樺偍绌洪棿
-     * @return
-     */
     public static long getAvailableInternalMemorySize() {
         File path = Environment.getDataDirectory();
         StatFs stat = new StatFs(path.getPath());
@@ -187,10 +154,7 @@ public class DeviceInfoHelper {
         return availableBlocks * blockSize;
     }
 
-    /**
-     * 鑾峰彇鎵嬫満鍐呴儴鎬荤殑瀛樺偍绌洪棿
-     * @return
-     */
+
     public static long getTotalInternalMemorySize() {
         File path = Environment.getDataDirectory();
         StatFs stat = new StatFs(path.getPath());
@@ -199,10 +163,7 @@ public class DeviceInfoHelper {
         return totalBlocks * blockSize;
     }
 
-    /**
-     * 鑾峰彇SDCARD鍓╀綑瀛樺偍绌洪棿
-     * @return
-     */
+
     public static long getAvailableExternalMemorySize() {
         if (externalMemoryAvailable()) {
             File path = Environment.getExternalStorageDirectory();
@@ -215,10 +176,7 @@ public class DeviceInfoHelper {
         }
     }
 
-    /**
-     * 鑾峰彇SDCARD鎬荤殑瀛樺偍绌洪棿
-     * @return
-     */
+
     public static long getTotalExternalMemorySize() {
         if (externalMemoryAvailable()) {
             File path = Environment.getExternalStorageDirectory();
@@ -231,32 +189,9 @@ public class DeviceInfoHelper {
         }
     }
     
-    /**
-     * SDCARD鏄惁鍙敤
-     */
+
     public static boolean externalMemoryAvailable() {
         return android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
     }
-    
-    public static String GetBuildProproperties(String propertiesName){
-    	try {
-    		InputStream is = new BufferedInputStream(new FileInputStream(new File("/system/build.prop")));
-    		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-    		String strTemp = "";
-    		while ((strTemp = br.readLine()) != null){// 濡傛灉鏂囦欢娌℃湁璇诲畬鍒欑户缁�
-    			if (strTemp.indexOf(propertiesName) != -1){
-    				return strTemp.substring(strTemp.indexOf("=") + 1);
-    			}
-    		}
-    		br.close();
-    		is.close();
-    		return null;
-		} catch (Exception e) {
-				 e.printStackTrace();
-				 return null;
-		}
-	}
-
-
 
 }

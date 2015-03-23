@@ -27,8 +27,6 @@ import android.widget.TextView;
 
 public abstract class BaseActivity extends Activity implements OnClickListener{
 
-	ActivityManager activityManager;
-
 	protected BaseActivity context;
 	protected TextView tvTitleName;
 	protected ImageView ivTitelName;
@@ -45,11 +43,9 @@ public abstract class BaseActivity extends Activity implements OnClickListener{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		Log.i(MyApplication.TAG, "Base Activity onCreate()");
 //		Logger.logHeap(this.getClass()); 
-		activityManager=(ActivityManager)this.getSystemService(Context.ACTIVITY_SERVICE);
 		MyApplication.getInstance().addActivity(this);
 		context = this;
 		Common.context = this;
-
 
 	}
 	

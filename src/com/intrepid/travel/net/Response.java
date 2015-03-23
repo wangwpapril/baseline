@@ -10,9 +10,6 @@ import java.util.zip.GZIPInputStream;
 
 import org.apache.http.HttpClientConnection;
 
-/*
- * ��������ķ���ֵ
- */
 public class Response {
 
 	private int statusCode;
@@ -30,8 +27,8 @@ public class Response {
 		try{
 			this.statusCode=connection.getResponseCode();
 		}catch (Exception e) {
-			if(e==null||e.toString().trim().equals("java.lang.NullPointerException")){//˵��url��ַ����ȷ���޷���������
-				throw new Exception("URL��ַ����ȷ������!");
+			if(e==null||e.toString().trim().equals("java.lang.NullPointerException")){
+				throw new Exception("URL is incorrect, please check!");
 			}
 		}
 		if(null==(is=connection.getErrorStream())){

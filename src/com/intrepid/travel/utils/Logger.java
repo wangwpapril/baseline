@@ -51,13 +51,6 @@ public class Logger {
 	} 
 
 	
-
-	/**
-	 * 根据异常对象拼写异常日志信息
-	 * 
-	 * @param e
-	 * @return
-	 */
 	private static String buildSystemMessage(Throwable e) {
 
 		String message = null;
@@ -70,14 +63,7 @@ public class Logger {
 		return message;
 	}
 
-	/**
-	 * 记录日志信息
-	 * 
-	 * @param message
-	 *            当次日志信息
-	 * @param file
-	 *            日志文件类型
-	 */
+
 	private static void Log(String message, File file) {
 		if (file == null)
 			return;

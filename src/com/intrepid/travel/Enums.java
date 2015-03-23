@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.intrepid.travel;
 
 import java.security.PublicKey;
@@ -28,51 +25,6 @@ public class Enums {
 			this.type = type;
 		}
 
-	}
-	public enum UploadTaskStatus{
-		Sending("������"),
-		FailedRestart("ʧ�����ش�"),
-		Paused("��ͣ"),
-		Waiting("�ȴ�"),
-		Finished("���"),
-		FailedContinue("ʧ������"),
-		Cancel("ȡ��"),
-		Failed("ʧ��"),
-		Restart("�ش�");
-		
-		private final String svalue;
-
-		public String getValue() {
-			return svalue;
-		}
-		
-		UploadTaskStatus(String value) {
-				this.svalue = value;
-		}
-	}
-	/**
-	 * ���״̬
-	 * @author SongQing<p>
-	 * <��>�����������ͣ�������֤ͨ��֮����޸�������ݿ��е�״̬Ϊ��<p>
-	 * <�༭��>���½����������һֱ���������֮����һֱ���ڱ༭��״̬<p>
-	 * <��̭>����ӱ༭��״̬����ת��Ϊ��̭<p>
-	 * <�ѷ�>������ͳɹ�������ش���ţ���������ݿ�newsId�ֶκ͸��״̬Ϊ�ѷ�<p>
-	 */
-	public enum ManuscriptStatus{
-		StandTo("��"), 
-		Editing("�༭��"), 
-		Elimination("��̭"),
-		Sent("�ѷ�");
-		
-		private final String svalue;
-
-		public String getValue() {
-			return svalue;
-		}
-		
-		ManuscriptStatus(String value) {
-				this.svalue = value;
-		}
 	}
 	
 	/**
@@ -103,32 +55,7 @@ public class Enums {
 				this.svalue = value;
 		}
 	}
-	
-	/**
-	 * �����������
-	 * @author SongQing
-	 *
-	 */
-	public enum AccessoryType{
-		Picture("ͼƬ"), 
-		Video("��Ƶ"), 
-		Voice("����"),
-		Complex("�����ĵ�"),
-		Graph("ͼ��"),
-		Text("����"),
-		Cache("Cache");
-		
-		private final String svalue;
 
-		public String getValue() {
-			return svalue;
-		}
-		
-		AccessoryType(String value) {
-				this.svalue = value;
-		}
-	}
-	
 	/**
 	 * ��־����
 	 * @author SongQing
@@ -171,28 +98,7 @@ public class Enums {
 				this.svalue = value;
 		}
 	} 
-	
-	/**
-	 * ͨ�ò�������
-	 * @author wenyujun
-	 *
-	 */
-	public enum OperationType{
-		Add("���"), Update("����"), Delete("ɾ��"), View("�鿴"), None("��");
-		
-		private final String svalue;
 
-		public String getValue() {
-			return svalue;
-		}
-		
-		OperationType(String value) {
-				this.svalue = value;
-		}
-	}
-	
-
-	
 	
 	public enum TemplateType{
 		NORMAL("�û��Զ���ģ��"),
@@ -285,16 +191,9 @@ public class Enums {
 		}
 	}
 	
-	/**
-	 * �ֻ�����״̬
-	 * @author wenyujun
-	 *
-	 */
+
 	public enum NetStatus
 	{
-		/*Disable("������"),
-		WIFI("WIFI����"),
-		MOBILE("�ֻ��������");*/
 		Disable(ToastHelper.getStringFromResources(R.string.network_disconnected)),
 		WIFI(ToastHelper.getStringFromResources(R.string.network_wifi_connected)),
 		MOBILE(ToastHelper.getStringFromResources(R.string.network_mobile_connected));
@@ -344,35 +243,7 @@ public class Enums {
 				this.svalue = value;
 		}
 	}
-	/**
-	 * ��Ϣ�Ķ������ͣ�������(0) ���� (1) ��Ա(2)
-	 */
-	public enum Readertype
-	{
-		All("0"),
-		Department("1"),
-		Person("2");
-		
-		private final String svalue;
 
-		public String getValue() {
-			return svalue;
-		}
-		public static Readertype parseFromValue(String value){
-			try {
-				int temp = Integer.parseInt(value);
-				return Readertype.values()[temp];
-			} catch (Exception e) {
-				return Readertype.Person;
-			}
-			
-		}
-		
-		Readertype(String value) {
-				this.svalue = value;
-		}
-		
-	}
 	/**
 	 * ��¼״̬(����/����)
 	 * @author SongQing
@@ -421,128 +292,6 @@ public class Enums {
 		}
 		
 		InterfaceType(String value) {
-				this.svalue = value;
-		}
-	}
-	
-	/**
-	 * ��Ϣ���������ͣ�ȫ�壨0�� ���� ��1�� ��ɫ ��2�� ���ˣ�3�� Ŀǰֻ����3
-	 * @author llna
-	 *
-	 */
-	public enum MsgOwnerType
-	{
-		All("0"),
-		Department("1"),
-		Role("2"),
-		Person("3");
-		
-		private final String svalue;
-
-		public String getValue() {
-			return svalue;
-		}
-		public static MsgOwnerType parseFromValue(String value){
-			try {
-				int temp = Integer.parseInt(value);
-				return MsgOwnerType.values()[temp];
-			} catch (Exception e) {
-				return MsgOwnerType.Person;
-			}
-			
-		}
-		
-		MsgOwnerType(String value) {
-				this.svalue = value;
-		}
-	}
-	
-	/**
-	 * ��Ϣ���ջ�ظ����ͣ����ܣ�0������ ��1��
-	 * @author llna
-	 *
-	 */
-	public enum SendOrReceiveType
-	{
-		Receive("0"),
-		Send("1");
-		
-		private final String svalue;
-
-		public String getValue() {
-			return svalue;
-		}
-		public  static SendOrReceiveType parseFromValue(String value){
-			try {
-				int temp = Integer.parseInt(value);
-				return SendOrReceiveType.values()[temp];
-			} catch (Exception e) {
-				return SendOrReceiveType.Receive;
-			}
-			
-		}
-		
-		SendOrReceiveType(String value) {
-				this.svalue = value;
-		}
-	}
-	
-	/**
-	 * ��Ϣ�Ѷ���δ�����ͣ��Ѷ���0��δ�� ��1��
-	 * @author llna
-	 *
-	 */
-	public enum ReadOrNotType
-	{
-		Read("0"),
-		New("1");
-		
-		private final String svalue;
-
-		public String getValue() {
-			return svalue;
-		}
-		public static ReadOrNotType parseFromValue(String value){
-			try {
-				int temp = Integer.parseInt(value);
-				return ReadOrNotType.values()[temp];
-			} catch (Exception e) {
-				return ReadOrNotType.Read;
-			}
-			
-		}
-		
-		ReadOrNotType(String value) {
-				this.svalue = value;
-		}
-	}
-	
-	/**
-	 * ��Ϣ����״̬���ɹ���1��ʧ�� ��0��
-	 * @author llna
-	 *
-	 */
-	public enum MsgSendStatus
-	{
-		Success("1"),
-		failed("0");
-		
-		private final String svalue;
-
-		public String getValue() {
-			return svalue;
-		}
-		public static MsgSendStatus parseFromValue(String value){
-			try {
-				int temp = Integer.parseInt(value);
-				return MsgSendStatus.values()[temp];
-			} catch (Exception e) {
-				return MsgSendStatus.failed;
-			}
-			
-		}
-		
-		MsgSendStatus(String value) {
 				this.svalue = value;
 		}
 	}

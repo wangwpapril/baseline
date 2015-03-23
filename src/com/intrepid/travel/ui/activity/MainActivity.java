@@ -326,8 +326,8 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	protected void onStart() {
-/*		super.onStart();
-		showUserAvatar(mApp.getOnlineUser());
+		super.onStart();
+/*		showUserAvatar(mApp.getOnlineUser());
 		boolean isShowOrderHint = PreferenceUtils.readBoolConfig(Constant.PreferKeys.KEY_NOTIFY_ORDER, this);
 		mViewOrderHint.setVisibility(isShowOrderHint ? View.VISIBLE : View.INVISIBLE);
 		

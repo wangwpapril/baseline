@@ -13,8 +13,6 @@ public class Common {
 	public static ProgressDialog dialogLoading;
 	public static Context context;
 
-
-
 	public static void showHintDialog(String title, String content) {
 
 		if (context != null) {
@@ -23,7 +21,7 @@ public class Common {
 					.setTitle(title)
 					.setMessage(content)
 					.setCancelable(true)
-					.setNegativeButton("确定",
+					.setNegativeButton("Confirmed",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {

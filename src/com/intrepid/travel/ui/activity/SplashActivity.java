@@ -51,39 +51,10 @@ public class SplashActivity extends Activity {
 	private SharedPreferencesHelper mSharedPreferencesHelper = null;
 	private DeviceInfoHelper dvDeviceInfoHelper;
 
-	private RelativeLayout uploadLayout;
-	private TextView fileNameTextView,proTextView;
-	private ProgressBar progressBar;
-	
-	
 	private static final String TAG = "SplashActivity";	
-	private static final int MSG_GETTOPICLIST_ERROR = 1;
-	private static final int MSG_GETTOPICLIST_START = 2;
-	private static final int MSG_GETTOPICLIST_PRO = 3;
-	private static final int MSG_GETTOPICLIST_END = 4;
-	private static final int MSG_GETAPPSERVER_ERROR = 5;
-	private static final int MSG_GETAPPSERVER_FINISH = 6;
-	private static final int MSG_VALIDATE_VERSION_FINISH = 7;
-	private static final int MSG_VALIDATE_VERSION_ERROR = 8;
-	private static final int MSG_NETWORK_NONE = 0;
-	private static final int MSG_NETWORK_TIMEOUT = -1;
-	private static final int MSG_VERSION_UPDATE_START=9;
 	private static int NORMAL_TIMEOUT = 6000;				
 	
-   	
-    private static String apkUrl = "";							 //系统锟斤拷装锟斤拷路锟斤拷 
-    private static String savePath ="";  						//锟斤拷锟截帮拷装路锟斤拷
-    private static String saveFileName="";					//锟斤拷锟斤拷路锟斤拷锟斤拷(锟斤拷锟斤拷锟侥硷拷锟斤拷)
-    /* 锟斤拷锟斤拷锟斤拷锟酵ㄖ猽i刷锟铰碉拷handler锟斤拷msg锟斤拷锟斤拷 */
-    private ProgressBar mProgress; 
-    private static final int DOWN_UPDATE = 10;      
-    private static final int DOWN_OVER = 11;
-	protected static final int MSG_SHOWNOTICEDIALOG = 12;
-	protected static final int MSG_SHOWNOTICEDIALOGOPTION = 13; 
-    private int progress;      
-    private boolean interceptFlag = false;
-    private AlertDialog.Builder builder = null;
-	
+   		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,9 +81,6 @@ public class SplashActivity extends Activity {
   
 	}
 
-	/**
-	 * 锟斤拷始锟斤拷
-	 */
 	private void initialize(){
 		dvDeviceInfoHelper = new DeviceInfoHelper();
 		mSharedPreferencesHelper = new SharedPreferencesHelper(SplashActivity.this);
@@ -120,29 +88,4 @@ public class SplashActivity extends Activity {
 	}
 	
 
-	 
-	private void setUpViews(){
-/*		uploadLayout=(RelativeLayout)findViewById(R.id.updateLayout_Splash);
-		progressBar=(ProgressBar)findViewById(R.id.proBar_Splash);
-		proTextView=(TextView)findViewById(R.id.proText_Splash);
-		fileNameTextView=(TextView)findViewById(R.id.fileName_Splash);
-*/	}
-	
- private static HashMap<String, String> toHashMap(JSONObject jsonObject) throws JSONException 
-    { 
-    	HashMap<String, String> result = new HashMap<String, String>(); 
-        @SuppressWarnings("unchecked")
-		Iterator<String> iterator = jsonObject.keys(); 
-        String key = null; 
-        String value = null; 
-        while (iterator.hasNext()) 
-        { 
-            key = iterator.next(); 
-            value = jsonObject.getString(key); 
-            result.put(key, value); 
-        } 
-        return result; 
-    } 
-    
- 
 }
