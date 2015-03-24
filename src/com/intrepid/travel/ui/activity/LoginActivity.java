@@ -7,6 +7,8 @@ import org.json.JSONObject;
 
 import com.google.mitijson.Gson;
 import com.intrepid.travel.Enums.ConnMethod;
+import com.intrepid.travel.Enums.PreferenceKeys;
+import com.intrepid.travel.Enums.PreferenceType;
 import com.intrepid.travel.MyApplication;
 import com.intrepid.travel.R;
 import com.intrepid.travel.models.User;
@@ -15,6 +17,7 @@ import com.intrepid.travel.net.IControlerContentCallback;
 import com.intrepid.travel.net.UserDemo;
 import com.intrepid.travel.net.UserInfoDemo;
 import com.intrepid.travel.store.beans.UserTable;
+import com.intrepid.travel.utils.SharedPreferenceUtil;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -111,14 +114,17 @@ public class LoginActivity extends BaseActivity {
 						e.printStackTrace();
 					}	
 		            
-//		            String userid = user1.id;
-//		            user1.id = "1160591404";
 		            UserTable.getInstance().saveUser(user);
 		            User ww = null;
 		            ww = UserTable.getInstance().getUser(user.id);
-					
-					
-					
+		            
+		            
+		            MyApplication.setLoginStatus(true);
+		            
+		    		SharedPreferenceUtil.setString(PreferenceKeys.userId.toString(), user.id);
+		    		SharedPreferenceUtil.setString(PreferenceKeys.token.toString(), user.token);
+		    		SharedPreferenceUtil.setBoolean(getApplicationContext(), PreferenceKeys.loginStatus.toString(), true);
+		            
 					
 /*					try {
 //						CommonMethod.handleUserInfo(content);
@@ -139,6 +145,10 @@ public class LoginActivity extends BaseActivity {
 
 				public void handleError(Exception e){
 //					CommonMethod.handleException(context,e);
+					showAlertDialog(getResources().getString(
+							R.string.login_title_name), "Invalid login credentials");
+					return;
+
 				}
 			};
 			

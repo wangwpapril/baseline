@@ -18,10 +18,11 @@ import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.intrepid.travel.Enums.PreferenceKeys;
 import com.intrepid.travel.MyApplication;
 import com.intrepid.travel.R;
 import com.intrepid.travel.utils.DeviceInfoHelper;
-import com.intrepid.travel.utils.SharedPreferencesHelper;
+import com.intrepid.travel.utils.SharedPreferenceUtil;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,16 +31,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Splash screen activity is used to show splash . Here we use handler to show
@@ -48,7 +41,6 @@ import android.widget.Toast;
  */
 public class SplashActivity extends Activity {
 
-	private SharedPreferencesHelper mSharedPreferencesHelper = null;
 	private DeviceInfoHelper dvDeviceInfoHelper;
 
 	private static final String TAG = "SplashActivity";	
@@ -65,13 +57,21 @@ public class SplashActivity extends Activity {
 
 		setContentView(R.layout.splash);
 		MyApplication.getInstance().addActivity(this);
+		
+//		String ss = SharedPreferenceUtil.getString(PreferenceKeys.userId.toString(), "");
 		this.initialize();
 		Handler h = new Handler();
 		h.postDelayed(new Runnable() {
 			@Override
 			public void run(){
+				Intent mIntent = null;
+				if(SharedPreferenceUtil.getBoolean(getApplicationContext(),PreferenceKeys.loginStatus.toString(), false)) {
+					mIntent = new Intent(SplashActivity.this,MainActivity.class);
+				}else{
+					mIntent = new Intent(SplashActivity.this,LoginActivity.class);
+				}
 //				Intent mIntent = new Intent(SplashActivity.this,MainActivity.class);
-				Intent mIntent = new Intent(SplashActivity.this,LoginActivity.class);
+//				Intent mIntent = new Intent(SplashActivity.this,LoginActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,SlidingdrawerActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,DraweringActivity.class);
 				startActivity(mIntent);
@@ -83,7 +83,6 @@ public class SplashActivity extends Activity {
 
 	private void initialize(){
 		dvDeviceInfoHelper = new DeviceInfoHelper();
-		mSharedPreferencesHelper = new SharedPreferencesHelper(SplashActivity.this);
 	
 	}
 	

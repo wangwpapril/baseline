@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.intrepid.travel.Enums.LoginStatus;
 import com.intrepid.travel.Enums.NetStatus;
 import com.intrepid.travel.utils.DeviceInfoHelper;
 import com.intrepid.travel.utils.Logger;
@@ -30,7 +29,7 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 	
 	private ArrayList<Activity> activityList;				
 	
-	private static LoginStatus loginStatus = null;		
+	private static boolean loginStatus = false;		
 	private static NetStatus netStatus = null;									
 	private static String userId;								
 	public static Object mLock;
@@ -82,11 +81,11 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 		MyApplication.netStatus = netStatus;
 	}
 	
-	public static LoginStatus getLoginStatus() {
+	public static boolean getLoginStatus() {
 		return loginStatus;
 	}
 
-	public static void setLoginStatus(LoginStatus loginStatus) {
+	public static void setLoginStatus(boolean loginStatus) {
 		MyApplication.loginStatus = loginStatus;
 	}
 	
@@ -139,11 +138,6 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 	}
 
 	
-	public String getCurrentUser(){
-		return userId;
-//		return currentUserInfo.getUsername();
-	}
-
 	public int getVersionCode() {
 		// TODO Auto-generated method stub
         try {
