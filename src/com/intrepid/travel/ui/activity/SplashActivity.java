@@ -44,7 +44,6 @@ public class SplashActivity extends Activity {
 	private DeviceInfoHelper dvDeviceInfoHelper;
 
 	private static final String TAG = "SplashActivity";	
-	private static int NORMAL_TIMEOUT = 6000;				
 	
    		
 	@Override
@@ -66,12 +65,12 @@ public class SplashActivity extends Activity {
 			public void run(){
 				Intent mIntent = null;
 				if(SharedPreferenceUtil.getBoolean(getApplicationContext(),PreferenceKeys.loginStatus.toString(), false)) {
-					mIntent = new Intent(SplashActivity.this,MainActivity.class);
+//					mIntent = new Intent(SplashActivity.this,MainActivity.class);
 				}else{
-					mIntent = new Intent(SplashActivity.this,LoginActivity.class);
+//					mIntent = new Intent(SplashActivity.this,LoginActivity.class);
 				}
 //				Intent mIntent = new Intent(SplashActivity.this,MainActivity.class);
-//				Intent mIntent = new Intent(SplashActivity.this,LoginActivity.class);
+				mIntent = new Intent(SplashActivity.this,LoginActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,SlidingdrawerActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,DraweringActivity.class);
 				startActivity(mIntent);

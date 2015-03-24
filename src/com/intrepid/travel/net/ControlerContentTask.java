@@ -21,6 +21,8 @@ public class ControlerContentTask extends
 	private String url;
 	private ConnMethod connMethod;
 	private boolean isHideLoading;
+	private static int NORMAL_TIMEOUT = 6000;				
+
 
 	public ControlerContentTask(String url, IControlerContentCallback icc,
 			ConnMethod connMethod,boolean isHideLoading){
@@ -70,11 +72,11 @@ public class ControlerContentTask extends
 			switch (connMethod) {
 			case GET:
 				PostParameter[] postParams = null;
-				rh.setResult(SimpleHttpClient.doGet(postParams, url, 6000));
+				rh.setResult(SimpleHttpClient.doGet(postParams, url, NORMAL_TIMEOUT));
 				break;
 			case POST:
 //				rh.setResult(SimpleHttpClient.post(url, getParams(params)));
-				rh.setResult(SimpleHttpClient.post(json, url, 6000));
+				rh.setResult(SimpleHttpClient.post(json, url, NORMAL_TIMEOUT));
 					
 				break;
 			}
