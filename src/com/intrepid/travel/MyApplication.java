@@ -14,6 +14,7 @@ import com.intrepid.travel.utils.Logger;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -124,6 +125,7 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 		Log.i(TAG, "Application onCreate()");
 		instance=this;
 		mLock=new Object();
+		ServiceManager.init(this);
 		intentHashMap=new HashMap<String, Object>();
 //		currentUserInfo = new User();
 //		userService =new UserService(this);
@@ -142,6 +144,14 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 //		return currentUserInfo.getUsername();
 	}
 
+	public int getVersionCode() {
+		// TODO Auto-generated method stub
+        try {
+            return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            return -1;
+        }
+	}
 	
 	public void uncaughtException(Thread thread, Throwable ex) {
 		Logger.e(ex);

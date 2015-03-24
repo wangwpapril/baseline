@@ -9,10 +9,12 @@ import com.google.mitijson.Gson;
 import com.intrepid.travel.Enums.ConnMethod;
 import com.intrepid.travel.MyApplication;
 import com.intrepid.travel.R;
+import com.intrepid.travel.models.User;
 import com.intrepid.travel.net.ControlerContentTask;
 import com.intrepid.travel.net.IControlerContentCallback;
 import com.intrepid.travel.net.UserDemo;
 import com.intrepid.travel.net.UserInfoDemo;
+import com.intrepid.travel.store.beans.UserTable;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -96,7 +98,29 @@ public class LoginActivity extends BaseActivity {
 			
 			IControlerContentCallback icc = new IControlerContentCallback() {
 				public void handleSuccess(String content){
+
+					JSONObject jsonObj = null, userObj = null;
+					User user = null;
+					
 					try {
+						jsonObj = new JSONObject(content);
+						userObj = jsonObj.getJSONObject("user");
+						user = new User(userObj);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
+		            
+//		            String userid = user1.id;
+//		            user1.id = "1160591404";
+		            UserTable.getInstance().saveUser(user);
+		            User ww = null;
+		            ww = UserTable.getInstance().getUser(user.id);
+					
+					
+					
+					
+/*					try {
 //						CommonMethod.handleUserInfo(content);
 //						openHome();
 //						CommonMethod.sendBroadcastOfLogin(context);
@@ -110,34 +134,28 @@ public class LoginActivity extends BaseActivity {
 					} catch (Exception e) {
 						e.printStackTrace();
 //						CommonMethod.handleException(context,e);
-					}
+					}*/
 				}
 
 				public void handleError(Exception e){
 //					CommonMethod.handleException(context,e);
 				}
 			};
+			
 			ControlerContentTask cct = new ControlerContentTask(
 					"https://api.intrepid247.com/v1/users/login", icc,
 //					"https://api.intrepid247.com/v1/destinations?short_list=true&token=ce6f284088d8c6bf88802f51f6d49776", icc,
 					ConnMethod.POST,false);
-//			HashMap<String, String> params = new HashMap<String, String>();
-//			params.put(RequestLogin.KEY_PHONE_NUMBER, phone);
-//			params.put(RequestLogin.KEY_PASSWORD, password);
-/*			RequestLogin rl = new RequestLogin();
-			rl.password = password;
-			rl.phoneNumber = phone;
-			cct.execute(rl);
-*/
-			UserInfoDemo demo = new UserInfoDemo();
+
+/*			UserInfoDemo demo = new UserInfoDemo();
 			UserDemo user = new UserDemo();
 			user.setEmail("wwang@peakcontact.com");
 			user.setPsw("12345678");
 			demo.setUser(user);
 			Gson gson = new Gson();
 			String parasString = gson.toJson(demo);
-			
-				JSONObject user1 = new JSONObject();
+*/			
+/*				JSONObject user1 = new JSONObject();
 				try {
 					user1.put("email", "wwang@peakcontact.com");
 				} catch (JSONException e1) {
@@ -158,11 +176,27 @@ public class LoginActivity extends BaseActivity {
 					e1.printStackTrace();
 				}
 				
-				parasString = jo.toString();
-				
-
+				String parasString = jo.toString();
+				cct.execute(parasString);
+*/				
+			JSONObject user = new JSONObject();
+			try {
+				user.put("email", email);
+				user.put("password", password);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
-			cct.execute(parasString);
+			JSONObject login = new JSONObject();
+			try {
+				login.put("user", user);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			cct.execute(login.toString());
 
 /*			HttpClient httpClient = new HttpClient();
 			PostParameter[] postParams = null;
