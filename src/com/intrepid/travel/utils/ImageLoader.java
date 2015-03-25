@@ -12,6 +12,8 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Stack;
 
+import com.intrepid.travel.store.beans.Image;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -31,7 +33,7 @@ public class ImageLoader {
 	int stub_id;
 
 	public ImageLoader(Context context, int iconDefaultResId) {
-		// Make the background thead low priority. This way it will not affect
+		// Make the background thread low priority. This way it will not affect
 		// the UI performance
 		stub_id = iconDefaultResId;
 		photoLoaderThread.setPriority(Thread.NORM_PRIORITY - 1);
@@ -50,10 +52,16 @@ public class ImageLoader {
 	}
 
 	public void DisplayImage(String url, Activity activity, ImageView imageView) {
-		if (cache.containsKey(url))
-			imageView.setImageBitmap(cache.get(url));
+
+		String Url=null;		
+		Url = url.replaceAll(" ", "%20");
+
+        Bitmap bm = Image.getInstance().get(Url);
+        if (null != bm) 
+//		if (cache.containsKey(url))
+			imageView.setImageBitmap(bm);
 		else {
-			queuePhoto(url, activity, imageView);
+			queuePhoto(Url, activity, imageView);
 			imageView.setImageResource(stub_id);
 		}
 	}
@@ -78,14 +86,6 @@ public class ImageLoader {
 		// demo.
 		String filename = String.valueOf(url.hashCode());
 		
-		String Url=null;
-		try {
-			Url = URLEncoder.encode(url,"UTF-8");
-			Url = url.replaceAll(" ", "%20");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		File f = new File(cacheDir, filename);
 
 		// from SD cache
@@ -96,7 +96,7 @@ public class ImageLoader {
 		// from web
 		try {
 			Bitmap bitmap = null;
-			InputStream is = new URL(Url).openStream();
+			InputStream is = new URL(url).openStream();
 			OutputStream os = new FileOutputStream(f);
 			CopyStream(is, os);
 			os.close();
@@ -191,6 +191,8 @@ public class ImageLoader {
 
 						}
 						Bitmap bmp = getBitmap(photoToLoad.url);
+		                Image.getInstance().save(photoToLoad.url, bmp);
+
 						cache.put(photoToLoad.url, bmp);
 						if (((String) photoToLoad.imageView.getTag())
 								.equals(photoToLoad.url)) {
