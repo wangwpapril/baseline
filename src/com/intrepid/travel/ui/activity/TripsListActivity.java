@@ -134,32 +134,7 @@ public class TripsListActivity extends BaseActivity {
 
 
 	}
-/*	private void getCategoryListTop(){
-		ControlerContentTask cct = new ControlerContentTask(
-				RequestUtil.getRequestUrl(URL_SUB.CATEGORY_TOP),
-				new IControlerContentCallback() {
 
-					public void handleSuccess(String content){
-						try {
-							datas = ResponseCategoryTop.parseJson(content);
-							categroyTopAdapter = new CategoryTopAdapter(
-									datas, context);
-							listView.setAdapter(categroyTopAdapter);
-						} catch (KnownException ke) {
-							CommonMethod.handleKnownException(context, ke, false);
-						} catch (Exception e) {
-							e.printStackTrace();
-							CommonMethod.handleException(context,e);
-						}
-					}
-
-					public void handleError(Exception e){
-						CommonMethod.handleException(context,e);
-					}
-				}, ConnMethod.POST,false);
-		cct.execute();
-	}
-*/
 	@Override
 	protected void initTitle(){
 		ivTitleBack.setVisibility(View.VISIBLE);
