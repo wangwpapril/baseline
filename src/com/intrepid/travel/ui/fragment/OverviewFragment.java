@@ -365,8 +365,8 @@ public class OverviewFragment extends BaseFragment {
 		super.onStart();
 /*		int orderType = PreferenceUtils.readIntConfig(Constant.PreferKeys.KEY_NOTIFY_ORDER_TYPE, mActivity, -1);
 		if (orderType == PushInfo.TYPE_ORDER_FANS){		*/	
-			mTabNaviBar.move(1);
-			onRefreshData();
+//			mTabNaviBar.move(0);
+	//		onRefreshData();
 /*		}else if(orderType == PushInfo.TYPE_ORDER_MINE){
 			mTabNaviBar.move(0);
 			onRefreshData();
