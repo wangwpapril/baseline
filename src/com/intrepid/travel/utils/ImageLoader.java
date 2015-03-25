@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilterInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -22,13 +24,6 @@ import android.widget.ImageView;
 
 public class ImageLoader {
 
-	public static final String FOLDER_NAME = "IMG_TEMP";
-
-	// the simplest in-memory cache implementation. This should be replaced with
-	// something like SoftReference or BitmapOptions.inPurgeable(since 1.6)
-	private HashMap<String, Bitmap> cache = new HashMap<String, Bitmap>();
-
-	private File cacheDir;
 
 	int stub_id;
 
@@ -38,17 +33,6 @@ public class ImageLoader {
 		stub_id = iconDefaultResId;
 		photoLoaderThread.setPriority(Thread.NORM_PRIORITY - 1);
 
-		// Find the dir to save cached images
-		if (android.os.Environment.getExternalStorageState().equals(
-				android.os.Environment.MEDIA_MOUNTED))
-			cacheDir = new File(
-					android.os.Environment.getExternalStorageDirectory(),
-					FOLDER_NAME);
-		else
-			cacheDir = context.getCacheDir();
-		if (!cacheDir.exists()) {
-			boolean createFolderOk = cacheDir.mkdirs();
-		}
 	}
 
 	public void DisplayImage(String url, Activity activity, ImageView imageView) {
@@ -58,7 +42,6 @@ public class ImageLoader {
 
         Bitmap bm = Image.getInstance().get(Url);
         if (null != bm) 
-//		if (cache.containsKey(url))
 			imageView.setImageBitmap(bm);
 		else {
 			queuePhoto(Url, activity, imageView);
@@ -84,25 +67,12 @@ public class ImageLoader {
 	public Bitmap getBitmap(String url) {
 		// I identify images by hashcode. Not a perfect solution, good for the
 		// demo.
-		String filename = String.valueOf(url.hashCode());
-		
-		File f = new File(cacheDir, filename);
-
-		// from SD cache
-		Bitmap b = decodeFile(f);
-		if (b != null)
-			return b;
-
 		// from web
 		try {
 			Bitmap bitmap = null;
 			InputStream is = new URL(url).openStream();
-			OutputStream os = new FileOutputStream(f);
-			CopyStream(is, os);
-			os.close();
-			bitmap = decodeFile(f);
-			System.out.println("Bitmap Width:" + bitmap.getWidth());
-			System.out.println("Bitmap Hight:" + bitmap.getHeight());
+			
+			bitmap = BitmapFactory.decodeStream(new FlushedInputStream(is));
 
 			return bitmap;
 		} catch (Exception ex) {
@@ -193,7 +163,6 @@ public class ImageLoader {
 						Bitmap bmp = getBitmap(photoToLoad.url);
 		                Image.getInstance().save(photoToLoad.url, bmp);
 
-						cache.put(photoToLoad.url, bmp);
 						if (((String) photoToLoad.imageView.getTag())
 								.equals(photoToLoad.url)) {
 							BitmapDisplayer bd = new BitmapDisplayer(bmp,
@@ -232,15 +201,6 @@ public class ImageLoader {
 		}
 	}
 
-	public void clearCache() {
-		// clear memory cache
-		cache.clear();
-
-		// clear SD cache
-		File[] files = cacheDir.listFiles();
-		for (File f : files)
-			f.delete();
-	}
 
 	public static void CopyStream(InputStream is, OutputStream os) {
 		final int buffer_size = 1024;
@@ -255,5 +215,29 @@ public class ImageLoader {
 		} catch (Exception ex) {
 		}
 	}
+
+    public static class FlushedInputStream extends FilterInputStream {
+        public FlushedInputStream(InputStream inputStream) {
+            super(inputStream);
+        }
+
+        @Override
+        public long skip(long n) throws IOException {
+            long totalBytesSkipped = 0L;
+            while (totalBytesSkipped < n) {
+                long bytesSkipped = in.skip(n - totalBytesSkipped);
+                if (bytesSkipped == 0L) {
+                    int byteValue = read();
+                    if (byteValue < 0) {
+                        break;  // we reached EOF
+                    } else {
+                        bytesSkipped = 1; // we read one byte
+                    }
+                }
+                totalBytesSkipped += bytesSkipped;
+            }
+            return totalBytesSkipped;
+        }
+    }
 
 }
