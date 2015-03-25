@@ -122,6 +122,10 @@ public class LoginActivity extends BaseActivity {
 		    		SharedPreferenceUtil.setString(PreferenceKeys.token.toString(), user.token);
 		    		SharedPreferenceUtil.setBoolean(getApplicationContext(), PreferenceKeys.loginStatus.toString(), true);
 		            
+					Intent mIntent = new Intent(LoginActivity.this,TripsListActivity.class);
+					startActivity(mIntent);
+					LoginActivity.this.finish();
+
 				}
 
 				public void handleError(Exception e){
