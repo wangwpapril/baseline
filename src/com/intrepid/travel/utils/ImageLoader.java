@@ -35,6 +35,7 @@ public class ImageLoader {
 
 		String Url=null;		
 		Url = url.replaceAll(" ", "%20");
+		imageView.setTag(Url);
 
         Bitmap bm = Image.getInstance().get(Url);
         if (null != bm) 
@@ -61,9 +62,6 @@ public class ImageLoader {
 	}
 
 	public Bitmap getBitmap(String url) {
-		// I identify images by hashcode. Not a perfect solution, good for the
-		// demo.
-		// from web
 		try {
 			Bitmap bitmap = null;
 			InputStream is = new URL(url).openStream();

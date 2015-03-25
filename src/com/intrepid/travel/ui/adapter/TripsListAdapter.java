@@ -66,7 +66,7 @@ public class TripsListAdapter extends MyBaseAdapter {
 		holder.tvName.setText(model.name);
 		holder.tvDesc.setText(model.type);
 		final ImageView imageView = holder.ivIcon;
-		imageView.setTag(model.imageFlag.version3.sourceUrl);
+//		imageView.setTag(model.imageFlag.version3.sourceUrl);
 //		ImageLoader.DisplayImage(null, context, imageView);
 		ImageLoader.DisplayImage(model.imageFlag.version3.sourceUrl, context, imageView);
 		convertView.setTag(holder);
