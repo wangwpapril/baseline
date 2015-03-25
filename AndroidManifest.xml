@@ -63,6 +63,10 @@
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".ui.activity.TripsListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         
     </application>
 

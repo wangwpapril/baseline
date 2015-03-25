@@ -49,5 +49,12 @@
 	public View llBottomLine;
 	llBottomLine = findViewById(R.id.category_bottom_gray_line);
 	 -->
+    <include 
+        android:visibility="gone"
+        android:id="@+id/category_bottom_gray_line"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        layout="@layout/gray_divider_horizontal"
+        />
 
 </LinearLayout>

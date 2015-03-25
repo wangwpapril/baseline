@@ -70,7 +70,8 @@ public class SplashActivity extends Activity {
 //					mIntent = new Intent(SplashActivity.this,LoginActivity.class);
 				}
 //				Intent mIntent = new Intent(SplashActivity.this,MainActivity.class);
-				mIntent = new Intent(SplashActivity.this,LoginActivity.class);
+//				mIntent = new Intent(SplashActivity.this,LoginActivity.class);
+				mIntent = new Intent(SplashActivity.this,TripsListActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,SlidingdrawerActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,DraweringActivity.class);
 				startActivity(mIntent);

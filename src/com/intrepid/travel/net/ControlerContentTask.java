@@ -67,7 +67,10 @@ public class ControlerContentTask extends
 	protected ResultHolder doInBackground(String... params){
 
 		ResultHolder rh = new ResultHolder();
-		String json = params[0];
+		String json = null;
+		if(params[0] != null)
+			json = params[0];
+		
 		try {
 			switch (connMethod) {
 			case GET:

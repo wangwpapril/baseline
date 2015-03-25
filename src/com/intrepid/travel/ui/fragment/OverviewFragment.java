@@ -613,7 +613,7 @@ public class OverviewFragment extends BaseFragment {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
-				convertView = mLayoutInflater.inflate(R.layout.catagory_top_item, null);
+				convertView = mLayoutInflater.inflate(R.layout.trip_list_item, null);
 			}						
 			
 			Object order = getItem(position);
