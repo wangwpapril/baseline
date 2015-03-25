@@ -117,34 +117,14 @@ public class LoginActivity extends BaseActivity {
 		            UserTable.getInstance().saveUser(user);
 		            User ww = null;
 		            ww = UserTable.getInstance().getUser(user.id);
-		            
-		            
-		            MyApplication.setLoginStatus(true);
-		            
-		    		SharedPreferenceUtil.setString(PreferenceKeys.userId.toString(), user.id);
+
+		            SharedPreferenceUtil.setString(PreferenceKeys.userId.toString(), user.id);
 		    		SharedPreferenceUtil.setString(PreferenceKeys.token.toString(), user.token);
 		    		SharedPreferenceUtil.setBoolean(getApplicationContext(), PreferenceKeys.loginStatus.toString(), true);
 		            
-					
-/*					try {
-//						CommonMethod.handleUserInfo(content);
-//						openHome();
-//						CommonMethod.sendBroadcastOfLogin(context);
-	//					setResult(RequestAndResultCode.RESULT_CODE_LOGIN_SUCCESS);
-						context.finish();
-//					} catch (KnownException ke) {
-						// if(ke.errorCode.equals("11")){//忘记密码错误码与已经存在此账号一致，需要确认
-						//
-						// }
-//						CommonMethod.handleException(context,ke.errorDesc);
-					} catch (Exception e) {
-						e.printStackTrace();
-//						CommonMethod.handleException(context,e);
-					}*/
 				}
 
 				public void handleError(Exception e){
-//					CommonMethod.handleException(context,e);
 					showAlertDialog(getResources().getString(
 							R.string.login_title_name), "Invalid login credentials");
 					return;
@@ -154,41 +134,8 @@ public class LoginActivity extends BaseActivity {
 			
 			ControlerContentTask cct = new ControlerContentTask(
 					"https://api.intrepid247.com/v1/users/login", icc,
-//					"https://api.intrepid247.com/v1/destinations?short_list=true&token=ce6f284088d8c6bf88802f51f6d49776", icc,
 					ConnMethod.POST,false);
 
-/*			UserInfoDemo demo = new UserInfoDemo();
-			UserDemo user = new UserDemo();
-			user.setEmail("wwang@peakcontact.com");
-			user.setPsw("12345678");
-			demo.setUser(user);
-			Gson gson = new Gson();
-			String parasString = gson.toJson(demo);
-*/			
-/*				JSONObject user1 = new JSONObject();
-				try {
-					user1.put("email", "wwang@peakcontact.com");
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try {
-					user1.put("password", "12345678");
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				JSONObject jo = new JSONObject();
-				try {
-					jo.put("user", user1);
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				String parasString = jo.toString();
-				cct.execute(parasString);
-*/				
 			JSONObject user = new JSONObject();
 			try {
 				user.put("email", email);
@@ -208,28 +155,12 @@ public class LoginActivity extends BaseActivity {
 			
 			cct.execute(login.toString());
 
-/*			HttpClient httpClient = new HttpClient();
-			PostParameter[] postParams = null;
-		
-//			String JSONResult = null;
-			String JSONResult = httpClient.post(parasString, "https://api.intrepid247.com/v1/users/login", 6000);	
-			
-            JSONObject jsonObj = new JSONObject(JSONResult);	
-            JSONObject userObj = jsonObj.getJSONObject("user");
-            User1 user1 = new User1(userObj);
-            String userid = user1.id;
-//            user1.id = "1160591404";
-            UserTable1.getInstance().saveUser(user1);
-            User1 ww = null;
-            ww = UserTable1.getInstance().getUser1(userid);
-*/
 
 		} else if (v == signUp) {
 			
 
 	} else if (v == ivTitleBack) {
 		onBackPressed();
-//		setResult(RequestAndResultCode.RESULT_CODE_LOGIN_FAIL);
 	}
 
 	

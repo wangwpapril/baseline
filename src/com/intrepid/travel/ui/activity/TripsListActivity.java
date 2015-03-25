@@ -110,7 +110,6 @@ public class TripsListActivity extends BaseActivity {
 			}
 
 			public void handleError(Exception e){
-//				CommonMethod.handleException(context,e);
 //				showAlertDialog(getResources().getString(
 	//					R.string.login_title_name), "Invalid login credentials");
 				return;
@@ -118,8 +117,11 @@ public class TripsListActivity extends BaseActivity {
 			}
 		};
 		
+		String token = null;
+		token = SharedPreferenceUtil.getString(PreferenceKeys.token.toString(), null);
+		
 		ControlerContentTask cct = new ControlerContentTask(
-				"https://api.intrepid247.com/v1/destinations?short_list=true&token=ce6f284088d8c6bf88802f51f6d49776", icc,
+				"https://api.intrepid247.com/v1/destinations?short_list=true&token=" + token, icc,
 				ConnMethod.GET,false);
 		String ss = null;
 		cct.execute(ss);

@@ -42,7 +42,6 @@ public abstract class BaseActivity extends Activity implements OnClickListener{
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		Log.i(MyApplication.TAG, "Base Activity onCreate()");
-//		Logger.logHeap(this.getClass()); 
 		MyApplication.getInstance().addActivity(this);
 		context = this;
 		Common.context = this;
@@ -67,7 +66,6 @@ public abstract class BaseActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		Log.i(MyApplication.TAG, "Base Activity onDestory()");
-//		Logger.logHeap(this.getClass()); 
 		
 	}
 
