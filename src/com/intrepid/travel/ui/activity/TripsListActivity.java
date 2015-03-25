@@ -43,22 +43,19 @@ public class TripsListActivity extends BaseActivity {
 	private List<Destination> datas;
 	private TripsListAdapter tripsListAdapter;
 
-//	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
-//		LogUtil.d(TAG + "  onCreate()....");
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.trip_list);
 		initView();
-//		datas = (List<Destination>) getIntent().getSerializableExtra("destinations");
-//		User1 user = (User1) getIntent().getSerializableExtra("user");
 		
-		if(datas == null)
+		if(datas == null) {
 			getTripList();
-	
-//			tripsListAdapter = new TripsListAdapter(
-	//				datas, context);
-		//	listView.setAdapter(tripsListAdapter);
+		}else{
+			tripsListAdapter = new TripsListAdapter(
+					datas, context);
+			listView.setAdapter(tripsListAdapter);
+		}
 	
 	}
 	
@@ -66,13 +63,11 @@ public class TripsListActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-//		Common.context = this.getParent();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-//		Common.context = null;
 	}
 
 	private void initView(){
@@ -109,11 +104,8 @@ public class TripsListActivity extends BaseActivity {
 					listView.setAdapter(tripsListAdapter);
 
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//				JSONObject dd = des.getJSONObject("destinations");
-	            	            
 				
 			}
 
@@ -131,7 +123,6 @@ public class TripsListActivity extends BaseActivity {
 				ConnMethod.GET,false);
 		String ss = null;
 		cct.execute(ss);
-
 
 	}
 

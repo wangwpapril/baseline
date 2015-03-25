@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.text.BreakIterator;
 import java.util.zip.GZIPInputStream;
 
-import org.apache.http.HttpClientConnection;
 
 public class Response {
 
@@ -70,7 +68,6 @@ public class Response {
 				streamConsumed=true;
 				
 			} catch (NullPointerException e) {
-				// TODO: handle exception
 				throw new Exception(e.getMessage(),e);
 			} catch(IOException ioe){
 				throw new Exception(ioe.getMessage(),ioe);

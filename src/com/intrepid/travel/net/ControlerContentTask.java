@@ -9,7 +9,6 @@ import org.apache.http.message.BasicNameValuePair;
 import com.intrepid.travel.Enums.ConnMethod;
 import com.intrepid.travel.utils.Common;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Handler;
 
@@ -50,12 +49,6 @@ public class ControlerContentTask extends
 		try {
 			if (params != null && params.length > 0) {
 				connParams = new ArrayList<NameValuePair>();
-//				Iterator<String> it = params[0].keySet().iterator();
-//				while (it.hasNext()) {
-//					String key = it.next().toString();
-//					connParams.add(new BasicNameValuePair(key, params[0].get(key)
-//							));
-//				}
 				connParams.add(new BasicNameValuePair("json", params[0].getparmStr()));
 			}
 		} catch (Exception e) {
@@ -74,8 +67,7 @@ public class ControlerContentTask extends
 		try {
 			switch (connMethod) {
 			case GET:
-				PostParameter[] postParams = null;
-				rh.setResult(SimpleHttpClient.doGet(postParams, url, NORMAL_TIMEOUT));
+				rh.setResult(SimpleHttpClient.doGet(url, NORMAL_TIMEOUT));
 				break;
 			case POST:
 //				rh.setResult(SimpleHttpClient.post(url, getParams(params)));
@@ -101,23 +93,6 @@ public class ControlerContentTask extends
 			icc.handleError(new Exception(result.getResult()));
 		}
 	}
-
-
-	
-//	private String getParamsJson(IContentParms params){
-//		try{
-//			JSONObject jo = new JSONObject();
-//			HashMap<String, String> param = params[0];
-//			Iterator<String> iterator= param.keySet().iterator();
-//			while(iterator.hasNext()){
-//				String key = iterator.next();
-//				jo.put(key, param.get(key));
-//			}
-//			return jo.toString();
-//		}catch(Exception e){
-//			return null;
-//		}
-//	}
 	
 	
 }

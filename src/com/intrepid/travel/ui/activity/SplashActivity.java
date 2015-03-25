@@ -41,7 +41,6 @@ import android.view.WindowManager;
  */
 public class SplashActivity extends Activity {
 
-	private DeviceInfoHelper dvDeviceInfoHelper;
 
 	private static final String TAG = "SplashActivity";	
 	
@@ -64,7 +63,7 @@ public class SplashActivity extends Activity {
 			@Override
 			public void run(){
 				Intent mIntent = null;
-				if(SharedPreferenceUtil.getBoolean(getApplicationContext(),PreferenceKeys.loginStatus.toString(), false)) {
+				if(MyApplication.getLoginStatus()) {
 //					mIntent = new Intent(SplashActivity.this,MainActivity.class);
 				}else{
 //					mIntent = new Intent(SplashActivity.this,LoginActivity.class);
@@ -82,7 +81,7 @@ public class SplashActivity extends Activity {
 	}
 
 	private void initialize(){
-		dvDeviceInfoHelper = new DeviceInfoHelper();
+//		dvDeviceInfoHelper = new DeviceInfoHelper();
 	
 	}
 	

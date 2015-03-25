@@ -3,26 +3,22 @@ package com.intrepid.travel;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.intrepid.travel.Enums.NetStatus;
+import com.intrepid.travel.Enums.PreferenceKeys;
 import com.intrepid.travel.utils.DeviceInfoHelper;
 import com.intrepid.travel.utils.Logger;
+import com.intrepid.travel.utils.SharedPreferenceUtil;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 
 public class MyApplication extends Application implements UncaughtExceptionHandler{
     
 	public static String TAG="Travel Smart Application";
-//	public static boolean isStop=false;
 //	public User currentUserInfo = null;
 //	private UserService userService = null;
 	private static DeviceInfoHelper deviceInfoHelper =null;
@@ -49,8 +45,6 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 				Log.e(TAG, e.getMessage());
 			}
 		}
-		
-//		MyApplication.isStop=true;
 		
 		
 //		Intent locationIntent = new Intent(this, LocationService.class);
@@ -126,12 +120,8 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 		mLock=new Object();
 		ServiceManager.init(this);
 		intentHashMap=new HashMap<String, Object>();
-//		currentUserInfo = new User();
-//		userService =new UserService(this);
-//		loginStatus = LoginStatus.none;
+		loginStatus = SharedPreferenceUtil.getBoolean(getApplicationContext(),PreferenceKeys.loginStatus.toString(), false);
 		activityList = new ArrayList<Activity>();
-				
-//		isStop=false;
 		
 		Thread.setDefaultUncaughtExceptionHandler(this);  
 			
@@ -139,7 +129,6 @@ public class MyApplication extends Application implements UncaughtExceptionHandl
 
 	
 	public int getVersionCode() {
-		// TODO Auto-generated method stub
         try {
             return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {

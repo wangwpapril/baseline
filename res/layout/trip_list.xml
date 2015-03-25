@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <include
-        android:id="@+id/category_title"
+        android:id="@+id/triplist_title"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/custom_title_height"
         layout="@layout/custom_title" />

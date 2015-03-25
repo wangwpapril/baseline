@@ -1,10 +1,5 @@
 package com.intrepid.travel.net;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -14,33 +9,14 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ConnectTimeoutException;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
 
 import com.intrepid.travel.Enums.NetStatus;
 import com.intrepid.travel.MyApplication;
 
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 
 public class SimpleHttpClient {
-	
-	
-	
+		
 	private static final int OK = 200;// OK: Success!
 	private static final int NOT_MODIFIED = 304;
 	private static final int BAD_REQUEST = 400;
@@ -51,7 +27,6 @@ public class SimpleHttpClient {
 	private static final int INTERNAL_SERVER_ERROR = 500;
 	private static final int BAD_GATEWAY = 502;
 	private static final int SERVICE_UNAVAILABLE = 503;
-	
 	private static final int NETWORK_DISABLED=601;
 
 	private static int retryCount = 1;
@@ -108,7 +83,7 @@ public class SimpleHttpClient {
 		return response.asString();
 	}
 
-	public static String doGet(PostParameter[] getParams, String connectionUrl,int connectTimeout) throws Exception{
+	public static String doGet(String connectionUrl,int connectTimeout) throws Exception{
 		NetStatus netStatus = MyApplication.getNetStatus();
 		if(netStatus == NetStatus.Disable){
 			return String.valueOf(NETWORK_DISABLED);
@@ -124,7 +99,6 @@ public class SimpleHttpClient {
 				HttpURLConnection connection = null;
 				try {
 
-//					connection = (HttpURLConnection) new URL(connectionUrl+"?"+encodeParameters(getParams)).openConnection();
 					connection = (HttpURLConnection) new URL(connectionUrl).openConnection();
 					if(connectTimeout !=0){
 						connection.setConnectTimeout(connectTimeout);
@@ -134,7 +108,6 @@ public class SimpleHttpClient {
 
 					if (responseCode != OK) {
 						if (responseCode < INTERNAL_SERVER_ERROR || retriedCount == retryCount)
-							//throw new XmcException(getCause(responseCode)+ "\n" + response.asString(), responseCode);
 							throw new Exception(getCause(responseCode));
 					} else {
 						break;
@@ -198,8 +171,6 @@ public class SimpleHttpClient {
 				if (responseCode != OK) {
 					if (responseCode < INTERNAL_SERVER_ERROR
 							|| retriedCount == retryCount)
-						// throw new XmcException(getCause(responseCode) + "\n"
-						// + response.asString(), responseCode);
 					throw new Exception(getCause(responseCode));
 				} else {
 					break;

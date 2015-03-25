@@ -6,23 +6,15 @@ import com.intrepid.travel.R;
 import com.intrepid.travel.models.Destination;
 import com.intrepid.travel.ui.activity.BaseActivity;
 
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
-/**
- *
- * @author wangyanpeng
- */
-
 public class TripsListAdapter extends MyBaseAdapter {
 	private List<Destination> datas;
-
 
 	public TripsListAdapter(List<Destination> datas,
 			BaseActivity context) {
@@ -48,7 +40,6 @@ public class TripsListAdapter extends MyBaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-//		LogUtil.d(position + "");
 		ViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ViewHolder();
@@ -56,11 +47,11 @@ public class TripsListAdapter extends MyBaseAdapter {
 					null);
 
 			holder.ivIcon = (ImageView) convertView
-					.findViewById(R.id.category_top_item_iv);
+					.findViewById(R.id.country_flag_item_iv);
 			holder.tvName = (TextView) convertView
-					.findViewById(R.id.category_top_item_name);
+					.findViewById(R.id.country_name);
 			holder.tvDesc = (TextView) convertView
-					.findViewById(R.id.category_item_top_desc);
+					.findViewById(R.id.country_desc);
 			holder.llBottomLine = convertView
 					.findViewById(R.id.category_bottom_gray_line);
 		} else {

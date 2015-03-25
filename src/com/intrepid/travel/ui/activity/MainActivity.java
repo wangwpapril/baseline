@@ -7,6 +7,7 @@ import com.intrepid.travel.MyApplication;
 import com.intrepid.travel.R;
 import com.intrepid.travel.ui.fragment.BaseFragment;
 import com.intrepid.travel.ui.fragment.OverviewFragment;
+import com.intrepid.travel.utils.ToastHelper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -380,7 +381,7 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public void onBackPressed() {
 		if ((SystemClock.elapsedRealtime() - exitTime) > 2000) {
-//			ToastUtil.showToast(mApp, R.string.exist_app_hint);
+			ToastHelper.showToast("Press one more time to exit the app!", 2000);
 			exitTime = SystemClock.elapsedRealtime();
 		} else {
  			quit();

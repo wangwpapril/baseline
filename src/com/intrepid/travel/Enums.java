@@ -78,7 +78,7 @@ public class Enums {
 	public enum PreferenceKeys{
 		currentUser("current user"),
 
-		etStatus("network status̬"),
+		netStatus("network status̬"),
 		username("user name"),
 		token("token"),
 		password("password"),
@@ -115,26 +115,5 @@ public class Enums {
 		}
 	}
 	
-
-	public enum InterfaceType{
-		baseUrl("��½�ļ�����"),
-		instantUploadUrl("���ļ���"),
-		sinosoftUrl("�п���"),
-		initialUrl("��ʼ�ӿ�"),
-		topicdownloadUrl("���ļ�����"),
-		oalistUrl("OA�б�"),
-		oaitemUrl("OA��"),
-		locationUrl("��λ����");
-		
-		private final String svalue;
-
-		public String getValue() {
-			return svalue;
-		}
-		
-		InterfaceType(String value) {
-				this.svalue = value;
-		}
-	}
 	
 }

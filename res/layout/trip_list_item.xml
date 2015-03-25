@@ -11,7 +11,7 @@
         android:gravity="center"
         >
     <ImageView 
-        android:id="@+id/category_top_item_iv"
+        android:id="@+id/country_flag_item_iv"
         android:layout_width="80dip"
         android:layout_marginTop="10dip"
         android:layout_marginBottom="10dip"
@@ -31,18 +31,16 @@
         <TextView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/category_top_item_name"
+            android:id="@+id/country_name"
             android:textSize="16sp"
             android:textColor="#3f4649"
-            android:text="服饰内衣"
             />
         <TextView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/category_item_top_desc"
+            android:id="@+id/country_desc"
             android:textSize="12sp"
             android:textColor="#808386"
-            android:text="女装/男装/内衣"
             />
     </LinearLayout>
         <!-- 

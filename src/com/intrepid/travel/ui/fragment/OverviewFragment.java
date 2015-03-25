@@ -622,7 +622,7 @@ public class OverviewFragment extends BaseFragment {
 				return convertView;
 			}
 			
-			ImageView imgViewAvatar = (ImageView) convertView.findViewById(R.id.category_top_item_iv);
+			ImageView imgViewAvatar = (ImageView) convertView.findViewById(R.id.country_flag_item_iv);
 			  
 /*			View viewGrpPrice= convertView.findViewById(R.id.viewGrpPriceIcon);
 			if (orderType == 1) {
@@ -635,7 +635,7 @@ public class OverviewFragment extends BaseFragment {
 					mFinalBitmap.display(imgViewAvatar, order.getUserInfo().getAvatarUrl());
 			}
 */									
-			TextView txtView = (TextView) convertView.findViewById(R.id.category_top_item_name);
+			TextView txtView = (TextView) convertView.findViewById(R.id.country_name);
 //			if (order.getTitle() != null) {
 				txtView.setText("test");
 	//		}			
