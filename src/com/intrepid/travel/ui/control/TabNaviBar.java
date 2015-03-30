@@ -2,8 +2,6 @@ package com.intrepid.travel.ui.control;
 
 import java.util.List;
 
-import com.intrepid.travel.R;
-
 import android.animation.FloatEvaluator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -14,6 +12,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.intrepid.travel.R;
 
 
 public class TabNaviBar extends FrameLayout {
