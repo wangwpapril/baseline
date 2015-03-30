@@ -23,6 +23,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
@@ -58,6 +59,7 @@ public class LoginActivity extends BaseActivity {
 		editTextEmail = (EditText) findViewById(R.id.signinEmailEditText);
 		editTextPassword = (EditText) findViewById(R.id.signinPasswordEditText);
 		signUp = (TextView) findViewById(R.id.sign_up);
+        signUp.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 		
 		imBtnSignIn.setOnClickListener(this);
 		editTextPassword.setTransformationMethod(PasswordTransformationMethod

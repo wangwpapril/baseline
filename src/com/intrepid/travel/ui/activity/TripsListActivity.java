@@ -3,6 +3,7 @@ package com.intrepid.travel.ui.activity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,10 +28,13 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +46,8 @@ public class TripsListActivity extends BaseActivity {
 	private ListView listView;
 	private List<Destination> datas;
 	private TripsListAdapter tripsListAdapter;
+	public static EditText mEditTextSearch;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -82,6 +88,26 @@ public class TripsListActivity extends BaseActivity {
 	//			context.startActivity(i);
 			}
 		});
+		
+		mEditTextSearch = (EditText) findViewById(R.id.edit_trip_search);
+		mEditTextSearch.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				String text = mEditTextSearch.getText().toString().toLowerCase(Locale.getDefault());
+				tripsListAdapter.getFilter(context).filter(text);
+			}
+		});
+
 	}
 	
 	private void getTripList(){
