@@ -1,17 +1,28 @@
 package com.intrepid.travel.ui.activity;
 
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.intrepid.travel.R;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.intrepid.travel.Enums.ConnMethod;
+import com.intrepid.travel.R;
+import com.intrepid.travel.models.Country;
+import com.intrepid.travel.net.ControlerContentTask;
+import com.intrepid.travel.net.IControlerContentCallback;
 
 
 
@@ -19,55 +30,123 @@ import android.widget.EditText;
 public class RegisterActivity extends BaseActivity {
 
 	protected static final String TAG = "ActivityRegister";
-	private EditText etPhone;
+	private EditText etFirstName;
+	private EditText etLastName;
+	private EditText etEmail;
+	private AutoCompleteTextView etCountry;
+	private EditText etUserName;
 	private EditText etPassword;
-	private EditText etPasswordConfirm;
-	private EditText etVerifycode;
-	private Button btnObtainVerifycode;
-	private Button btnRegister;
-	private boolean isResetPwd = false;
+	private EditText etPolicyNumber;
+	private Button btnSignUp;
+	
+	private List<Country> countryList;
+	
+	private ArrayAdapter countryAdapter = null;
+	private static String countryCode = null;
+	private static String companyId = null;
+	private static List<String> countryNames = null, countryCodes = null;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		fetchCountries();
 		this.setContentView(R.layout.signup_layout);
-		isResetPwd = getIntent().getBooleanExtra(IntentKeys.KEY_IS_RESETPWD,
-				false);
 		initView();
 	}
+	
+	private void fetchCountries() {
+		
+		IControlerContentCallback icc = new IControlerContentCallback() {
+			public void handleSuccess(String content) {
+				JSONObject countries = null;
+				try {
+					countries = new JSONObject(content);
+					JSONArray array = countries.getJSONArray("countries");
+					int len = array.length();
+					countryList = new ArrayList<Country>(len);
+					for (int i =0;i < len; i++){
+						countryList.add(new Country(array.getJSONObject(i)));
+					}
 
-	private void initTimer() {
-		time = new TimeCount(60000, 1000);// 构造CountDownTimer对象
+					countryNames = new ArrayList<String>();
+					countryCodes = new ArrayList<String>();
+					for (Country country : countryList) {
+						countryNames.add(country.name);
+						countryCodes.add(country.countryCode);
+					}
+					countryAdapter = new ArrayAdapter(context, android.R.layout.simple_spinner_item, countryNames);
+					countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					etCountry.setAdapter(countryAdapter);
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+			public void handleError(Exception e) {
+				return;
+			}
+		};
+		ControlerContentTask cct = new ControlerContentTask(
+				"https://staging.intrepid247.com/v1/countries", icc,
+				ConnMethod.GET, false);
+
+		String ss = null;
+		cct.execute(ss);		
 	}
+
 
 	private void initView() {
 		super.initTitleView();
-		etPhone = (EditText) findViewById(R.id.register_phone);
-		etPassword = (EditText) findViewById(R.id.register_password);
-		etPasswordConfirm = (EditText) findViewById(R.id.register_password_confirm);
-		etVerifycode = (EditText) findViewById(R.id.register_verifycode);
-		btnObtainVerifycode = (Button) findViewById(R.id.register_obtain_verifycode);
-		btnRegister = (Button) findViewById(R.id.register_btn_confirm);
-		btnObtainVerifycode.setOnClickListener(this);
-		btnRegister.setOnClickListener(this);
-		if (isResetPwd) {
-			btnRegister.setText("重置密码");
-		}
-		initTimer();
+		etFirstName = (EditText) findViewById(R.id.firstNameEditText);
+		etLastName = (EditText) findViewById(R.id.lastNameEditText);
+		etEmail = (EditText) findViewById(R.id.emailEditText);
+		etCountry = (AutoCompleteTextView) findViewById(R.id.countryEditText);
+		etUserName = (EditText) findViewById(R.id.userNameEditText);
+		etPassword = (EditText) findViewById(R.id.PasswordEditText);
+		etPolicyNumber = (EditText) findViewById(R.id.policyNumberEditText);
+		etUserName = (EditText) findViewById(R.id.userNameEditText);
+		btnSignUp = (Button) findViewById(R.id.butSignUp);
+		btnSignUp.setOnClickListener(this);
+		
+		
+		etCountry.setAdapter(countryAdapter);
+		etCountry.setEnabled(true);
+		etCountry.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				etCountry.showDropDown();
+				
+			}
+			
+		});
+		
+		etCountry.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+//				countryCode = countryAdapter.getItem(position).toString();
+				countryCode = countryCodes.get(position);
+//				etCountry.setEnabled(false);
+				
+			}
+			
+		});
 	}
 
+
+	
 	@Override
 	protected void initTitle() {
-		if (isResetPwd) {
-			tvTitleName.setText("重置密码");
-		} else {
-			tvTitleName.setText(R.string.register_title_name);
-		}
+		tvTitleName.setText("Sign Up");
 		ivTitleBack.setVisibility(View.VISIBLE);
-		tvTitleRight.setVisibility(View.VISIBLE);
-		tvTitleRight.setText(R.string.register_title_login);
-		tvTitleRight.setOnClickListener(this);
-		ivTitleBack.setOnClickListener(this);
+//		tvTitleRight.setVisibility(View.VISIBLE);
+	//	tvTitleRight.setText(R.string.register_title_login);
+//		tvTitleRight.setOnClickListener(this);
+	//	ivTitleBack.setOnClickListener(this);
 		// TODO:btnTitleBack.setImageResource(resId);
 		// TODO:ivTitleRight.setImageResource(resId);
 
@@ -75,52 +154,23 @@ public class RegisterActivity extends BaseActivity {
 
 	@Override
 	public void onClick(View v) {
-		if (v == btnObtainVerifycode) {
-			String phone = etPhone.getText().toString();
-			if (TextUtils.isEmpty(phone) || !CommonUtil.isPhoneNo(phone)) {
-				ToastUtil.show(context, R.string.register_phone_input_error,
-						true);
-				return;
-			}
-			IControlerContentCallback icc = new IControlerContentCallback() {
-				public void handleSuccess(String content) {
-					try {
-						String result = CommonMethod.handleContent(content);
-						// JSONObject jo = JsonUtil.getJsonObject(result);
-						// String msg = jo.getString("message");
-						// String code = msg.substring(msg.indexOf("：") + 1,
-						// msg.indexOf("：") + 7);
-						// etVerifycode.setText(code);//
-						// TODO：测试使用，正式环境应该是给用户发短信，用户自己输入的
-						time.start();// 开始计时
-						ToastUtil.show(context,
-								R.string.register_verifycode_sent, true);
-					} catch (Exception e) {
-						e.printStackTrace();
-						CommonMethod.handleException(context, e);
-					}
-				}
+		if (v == etCountry) {
+			etCountry.setEnabled(true);
 
-				public void handleError(Exception e) {
-					handleError(e);
-				}
-			};
-
-			ControlerContentTask cct = new ControlerContentTask(
-					RequestUtil.getRequestUrl(URL_SUB.REGISTER_VERIFYCODE),
-					icc, ConnMethod.POST, false);
-			// HashMap<String, String> params = new HashMap<String, String>();
-			// params.put(RequestSmsCode.KEY_PHONE, phone);
-			RequestSmsCode rmc = new RequestSmsCode();
-			rmc.phone = phone;
-			cct.execute(rmc);
-
-		} else if (v == btnRegister) {
-			String phone = etPhone.getText().toString();
+		} else if (v == btnSignUp) {
+			String firstName = etFirstName.getText().toString();
+			String lastName = etLastName.getText().toString();
+			String email = etEmail.getText().toString();
+			String country = etCountry.getText().toString();
+			String userName = etUserName.getText().toString();
 			String password = etPassword.getText().toString();
-			String passwordConfirm = etPasswordConfirm.getText().toString();
-			String verifycode = etVerifycode.getText().toString();
-			if (TextUtils.isEmpty(phone) || !CommonUtil.isPhoneNo(phone)) {
+			String policyNumber = etPolicyNumber.getText().toString();
+			
+			if (policyNumber != null) {
+				checkGroupNumber(policyNumber);
+			}
+			
+/*			if (TextUtils.isEmpty(phone) || !CommonUtil.isPhoneNo(phone)) {
 				ToastUtil.show(context, R.string.register_phone_input_error,
 						true);
 				return;
@@ -139,41 +189,11 @@ public class RegisterActivity extends BaseActivity {
 				ToastUtil.show(context, R.string.register_verify_error, true);
 				return;
 			}
+*/
 
-			IControlerContentCallback icc = new IControlerContentCallback() {
-				public void handleSuccess(String content) {
-					try {
-						CommonMethod.handleUserInfo(content);
-						openHome();
-						context.finish();
-					} catch (KnownException ke) {
-						// if(ke.errorCode.equals("11")){//忘记密码错误码与已经存在此账号一致，需要确认
-						//
-						// }
-						CommonMethod.handleKnownException(context, ke, false);
-					} catch (Exception e) {
-						e.printStackTrace();
-						CommonMethod.handleException(context, e);
-					}
-				}
-
-				public void handleError(Exception e) {
-					CommonMethod.handleException(context, e);
-				}
-			};
-			ControlerContentTask cct = new ControlerContentTask(
-					RequestUtil.getRequestUrl(URL_SUB.REGISTER), icc,
-					ConnMethod.POST, false);
-
-			RequestRegister rr = new RequestRegister();
-			rr.password = password;
-			rr.phoneNumber = phone;
-			rr.smCode = verifycode;
-			rr.resetpasswd = isResetPwd ? "1" : "0";
-			cct.execute(rr);
 		} else if (v == tvTitleRight) {
 			Intent i = new Intent();
-			i.setClass(context, ActivityLogin.class);
+//			i.setClass(context, ActivityLogin.class);
 			context.startActivity(i);
 			context.finish();
 		} else if (v == ivTitleBack) {
@@ -182,25 +202,49 @@ public class RegisterActivity extends BaseActivity {
 
 	}
 
-	private TimeCount time;
 
-	class TimeCount extends CountDownTimer {
-		public TimeCount(long millisInFuture, long countDownInterval) {
-			super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
+	private void checkGroupNumber( String gNumber) {
+
+		IControlerContentCallback icc = new IControlerContentCallback() {
+			public void handleSuccess(String content) {
+				JSONObject company = null;
+				try {
+					company = new JSONObject(content).getJSONObject("company");
+					companyId = company.getString("id");	
+					signUp();
+					
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
 
-		@Override
-		public void onFinish() {// 计时完毕时触发
-			btnObtainVerifycode.setText(context
-					.getString(R.string.register_obtain_verifycode));
-			btnObtainVerifycode.setClickable(true);
+			public void handleError(Exception e) {
+				return;
+			}
+		};
+		ControlerContentTask cct = new ControlerContentTask(
+				"https://api.intrepid247.com/v1/companies/checkGroupNum", icc,
+				ConnMethod.POST, false);
+		
+		JSONObject company = new JSONObject();
+		try {
+			company.put("group_num", gNumber);
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+		
+		JSONObject check = new JSONObject();
+		try {
+			check.put("company", company);
+		} catch (JSONException e1) {
+			e1.printStackTrace();
 		}
 
-		@Override
-		public void onTick(long millisUntilFinished) {// 计时过程显示
-			btnObtainVerifycode.setClickable(false);
-			btnObtainVerifycode.setText(millisUntilFinished / 1000 + "秒");
-		}
+		cct.execute(check.toString());		
 	}
 
+	private void signUp() {
+		
+	}
+	
 }

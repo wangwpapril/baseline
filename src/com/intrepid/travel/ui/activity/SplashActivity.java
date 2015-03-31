@@ -53,7 +53,7 @@ public class SplashActivity extends Activity {
 		
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		setContentView(R.layout.signup_layout);
+		setContentView(R.layout.splash);
 		MyApplication.getInstance().addActivity(this);
 		
 //		String ss = SharedPreferenceUtil.getString(PreferenceKeys.userId.toString(), "");
@@ -64,7 +64,7 @@ public class SplashActivity extends Activity {
 			public void run(){
 				Intent mIntent = null;
 				if(MyApplication.getLoginStatus()) {
-					mIntent = new Intent(SplashActivity.this,MainActivity.class);
+					mIntent = new Intent(SplashActivity.this,RegisterActivity.class);
 				}else{
 					mIntent = new Intent(SplashActivity.this,LoginActivity.class);
 				}
@@ -73,8 +73,8 @@ public class SplashActivity extends Activity {
 //				mIntent = new Intent(SplashActivity.this,TripsListActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,SlidingdrawerActivity.class);
 //				Intent mIntent = new Intent(SplashScreenActivity.this,DraweringActivity.class);
-//				startActivity(mIntent);
-	//			SplashActivity.this.finish();
+				startActivity(mIntent);
+				SplashActivity.this.finish();
 			}
 		},2000);	
   

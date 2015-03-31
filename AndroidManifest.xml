@@ -67,6 +67,10 @@
             android:name=".ui.activity.TripsListActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         
     </application>
 
