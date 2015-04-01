@@ -113,11 +113,14 @@ public class RegisterActivity extends BaseActivity {
 		
 		etCountry.setAdapter(countryAdapter);
 		etCountry.setEnabled(true);
+		etCountry.setDropDownBackgroundResource(R.drawable.login_btn);
+
 		etCountry.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				etCountry.showDropDown();
+				
 				
 			}
 			
