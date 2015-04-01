@@ -164,7 +164,7 @@ public class OverviewFragment extends BaseFragment {
 
 			@Override
 			public void onPageSelected(int arg0) {
-				mTabNaviBar.move(arg0);
+//				mTabNaviBar.move(arg0);
 			}
 
 			@Override
