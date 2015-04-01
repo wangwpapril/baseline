@@ -8,7 +8,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -17,12 +19,17 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.intrepid.travel.Enums.ConnMethod;
 import com.intrepid.travel.R;
 import com.intrepid.travel.models.Country;
+import com.intrepid.travel.models.User;
 import com.intrepid.travel.net.ControlerContentTask;
 import com.intrepid.travel.net.IControlerContentCallback;
+import com.intrepid.travel.store.beans.UserTable;
+import com.intrepid.travel.utils.StringUtil;
+import com.intrepid.travel.utils.ToastHelper;
 
 
 
@@ -38,12 +45,21 @@ public class RegisterActivity extends BaseActivity {
 	private EditText etPassword;
 	private EditText etPolicyNumber;
 	private Button btnSignUp;
+	private TextView termsUse;
 	
 	private List<Country> countryList;
 	
 	private ArrayAdapter countryAdapter = null;
 	private static String countryCode = null;
 	private static String companyId = null;
+	private static String firstName = null;
+	private static String lastName = null;
+	private static String email = null;
+	private static String country = null;
+	private static String userName = null;
+	private static String password = null;
+	private static String policyNumber = null;
+	private static String activationCode = null;
 	private static List<String> countryNames = null, countryCodes = null;
 
 
@@ -109,6 +125,9 @@ public class RegisterActivity extends BaseActivity {
 		etUserName = (EditText) findViewById(R.id.userNameEditText);
 		btnSignUp = (Button) findViewById(R.id.butSignUp);
 		btnSignUp.setOnClickListener(this);
+		termsUse = (TextView) findViewById(R.id.termsofUse);
+		termsUse.setOnClickListener(this);
+		termsUse.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 		
 		
 		etCountry.setAdapter(countryAdapter);
@@ -161,13 +180,33 @@ public class RegisterActivity extends BaseActivity {
 			etCountry.setEnabled(true);
 
 		} else if (v == btnSignUp) {
-			String firstName = etFirstName.getText().toString();
+
+/*			String firstName = etFirstName.getText().toString();
 			String lastName = etLastName.getText().toString();
 			String email = etEmail.getText().toString();
 			String country = etCountry.getText().toString();
 			String userName = etUserName.getText().toString();
 			String password = etPassword.getText().toString();
 			String policyNumber = etPolicyNumber.getText().toString();
+*/			
+			firstName = etFirstName.getText().toString();
+			lastName = etLastName.getText().toString();
+			email = etEmail.getText().toString();
+			country = etCountry.getText().toString();
+			userName = etUserName.getText().toString();
+			password = etPassword.getText().toString();
+			policyNumber = etPolicyNumber.getText().toString();
+			
+			if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) ||
+					TextUtils.isEmpty(email) || TextUtils.isEmpty(country) ||
+					TextUtils.isEmpty(userName) || TextUtils.isEmpty(password) ||
+					TextUtils.isEmpty(policyNumber)) {
+				ToastHelper.showToast("All fields are required.", 2000);
+				return;
+			} else if(!StringUtil.isEmail(email)){
+				ToastHelper.showToast("The email format is invalid", 2000);
+				return;
+			}
 			
 			if (policyNumber != null) {
 				checkGroupNumber(policyNumber);
@@ -194,7 +233,7 @@ public class RegisterActivity extends BaseActivity {
 			}
 */
 
-		} else if (v == tvTitleRight) {
+		} else if (v == termsUse) {
 			Intent i = new Intent();
 //			i.setClass(context, ActivityLogin.class);
 			context.startActivity(i);
@@ -248,6 +287,158 @@ public class RegisterActivity extends BaseActivity {
 
 	private void signUp() {
 		
+		IControlerContentCallback icc = new IControlerContentCallback() {
+			public void handleSuccess(String content){
+
+				JSONObject jsonObj = null, userObj = null;
+				User user = null;
+				
+				try {
+					jsonObj = new JSONObject(content);
+					userObj = jsonObj.getJSONObject("user");
+					user = new User(userObj);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}	
+	            
+	            UserTable.getInstance().saveUser(user);
+	            activationCode = user.activationCode;
+	            User ww = null;
+	            ww = UserTable.getInstance().getUser(user.id);
+	            
+	            sendEmailWithActivationCode();
+
+//	            SharedPreferenceUtil.setString(PreferenceKeys.userId.toString(), user.id);
+	//    		SharedPreferenceUtil.setString(PreferenceKeys.token.toString(), user.token);
+	  //  		SharedPreferenceUtil.setBoolean(getApplicationContext(), PreferenceKeys.loginStatus.toString(), true);
+	            
+//				Intent mIntent = new Intent(LoginActivity.this,TripsListActivity.class);
+	//			startActivity(mIntent);
+//				LoginActivity.this.finish();
+
+			}
+
+			public void handleError(Exception e){
+//				showAlertDialog(getResources().getString(
+	//					R.string.login_title_name), "Invalid login credentials");
+				return;
+
+			}
+		};
+		
+		ControlerContentTask cct = new ControlerContentTask(
+				"https://staging.intrepid247.com/v1/users", icc,
+				ConnMethod.POST,false);
+
+		JSONObject user = new JSONObject();
+		JSONArray roles = null;
+		roles = new JSONArray().put("end_user");
+		try {
+			user.put("email", email);
+			user.put("first_name", firstName);
+			user.put("last_name", lastName);
+			user.put("username", userName);
+			user.put("password", password);
+			user.put("roles", roles);
+			user.put("locale_code", "en_CA");
+			user.put("country_code", countryCode);
+			user.put("company_id", policyNumber);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JSONObject signup = new JSONObject();
+		try {
+			signup.put("user", user);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		cct.execute(signup.toString());
+
+		
 	}
 	
+	private void sendEmailWithActivationCode(){
+		
+		IControlerContentCallback icc = new IControlerContentCallback() {
+			public void handleSuccess(String content){
+
+				JSONArray jsonObj = null;
+			    JSONObject jo = null;
+				
+				try {
+					jsonObj = new JSONArray(content);
+					jo = jsonObj.getJSONObject(0);
+					if ("sent".equals(jsonObj.getJSONObject(0).getString("status"))){
+						Intent mIntent = new Intent(RegisterActivity.this,LoginActivity.class);
+						startActivity(mIntent);
+						RegisterActivity.this.finish();
+
+					}
+					
+					
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}	
+	            
+			}
+
+			public void handleError(Exception e){
+//				showAlertDialog(getResources().getString(
+	//					R.string.login_title_name), "Invalid login credentials");
+				return;
+
+			}
+		};
+		
+		ControlerContentTask cct = new ControlerContentTask(
+				"https://mandrillapp.com/api/1.0/messages/send.json", icc,
+				ConnMethod.POST,false);
+
+
+		String text = String.format("Hi %s,\n\nThank you for signing up with ACE Travel Smart.\n"
+				+ "Please click on the confirmation link below to activate your account.\n"
+				+ "https://app.acetravelsmart.com/users/activate/%s", firstName, activationCode);
+		
+		JSONObject message = new JSONObject();
+		JSONObject to = new JSONObject();
+		JSONArray toArray = null;
+		try {
+			to.put("email", email);
+			to.put("name",firstName+" "+lastName);
+		} catch (JSONException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		toArray = new JSONArray().put(to);
+		try {
+			message.put("from_email", "do-not-reply@acetravelsmart.com");
+			message.put("from_name", "ACE Travel Smart");
+			message.put("subject", "Thank you for signing up");
+			message.put("text", text);
+			message.put("to", toArray);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JSONObject send = new JSONObject();
+		try {
+			send.put("key", "2Hw47otRRKIaEQ3sQwoXAg");
+			send.put("message", message);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		cct.execute(send.toString());
+		
+	}
+
+
+
 }

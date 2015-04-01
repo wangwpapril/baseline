@@ -197,9 +197,7 @@
             android:background="@color/gray"
             />
 
-
-
-               </LinearLayout>
+       </LinearLayout>
 
     <Button
         android:id="@+id/butSignUp"
@@ -237,10 +235,10 @@
 
     <TextView
         android:id="@+id/termsofUse"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="termsofUse"
+        android:text="Terms of Use"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:gravity="center_horizontal"
