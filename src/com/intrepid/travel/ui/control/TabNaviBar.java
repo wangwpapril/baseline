@@ -1,11 +1,9 @@
 package com.intrepid.travel.ui.control;
 
-
 import java.util.List;
 
-import com.intrepid.travel.R;
-
 import android.animation.FloatEvaluator;
+import android.animation.IntEvaluator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -16,14 +14,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.intrepid.travel.R;
 
 public class TabNaviBar extends FrameLayout {
 
 	/**
-	 * Define the cursor height  , unit is dp.
+	 * Define the cursor height , unit is dp.
 	 */
 	private final static int HEIGHT_CURSOR = 3;
-	
+
 	private ImageView mImgViewCursor;
 
 	private FrameLayout mViewGrpTrack;
@@ -48,7 +47,7 @@ public class TabNaviBar extends FrameLayout {
 
 	void init() {
 		mImgViewCursor = new ImageView(getContext());
-		mImgViewCursor.setBackgroundColor(getResources().getColor(R.color.pink));
+		mImgViewCursor.setBackgroundColor(getResources().getColor(R.color.circle_active));
 	}
 
 	public void setAdapter(TabAdapter adapter) {
@@ -77,14 +76,8 @@ public class TabNaviBar extends FrameLayout {
 				LayoutParams.WRAP_CONTENT);
 		flp.gravity = Gravity.BOTTOM;
 		addView(mViewGrpTrack, flp);
-		
-		float density = getResources().getDisplayMetrics().density;
 
-		ImageView bottomDivider = new ImageView(getContext());
-		bottomDivider.setBackgroundColor(getResources().getColor(R.color.blue));
-		flp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, 1);
-		flp.gravity = Gravity.BOTTOM;
-		mViewGrpTrack.addView(bottomDivider, flp);
+		float density = getResources().getDisplayMetrics().density;
 
 		flp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, (int) density * HEIGHT_CURSOR);
 		flp.gravity = Gravity.BOTTOM;
@@ -92,8 +85,9 @@ public class TabNaviBar extends FrameLayout {
 
 	}
 
-	public List<View> getTabViews() {
-		return mTabViewList;
+	public final void setScrollX(int position) {
+		mViewGrpTrack.scrollTo(position, 0);
+		mViewGrpTrack.invalidate();
 	}
 
 	private OnClickListener mTabOnclickListener = new OnClickListener() {
@@ -110,8 +104,8 @@ public class TabNaviBar extends FrameLayout {
 		for (View view : viewList) {
 			mTabAdapter.viewStateChange(view, index == currIndex);
 			index++;
-		}
-		requestLayout();
+		}		
+//		requestLayout();
 	}
 
 	@Override
@@ -134,12 +128,12 @@ public class TabNaviBar extends FrameLayout {
 		super.onLayout(changed, l, t, r, b);
 		if (getTabCount() > 0) {
 			int step = getWidth() / getTabCount();
-			mImgViewCursor.setTranslationX(currIndex * step);
-		}		
+			mViewGrpTrack.scrollTo((-1) * currIndex * step, 0);
+		}
 	}
 
 	/**
-	 * Move the focus tab into special index.
+	 * Move the focus tab into specail index.
 	 * 
 	 * @param index
 	 */
@@ -154,10 +148,10 @@ public class TabNaviBar extends FrameLayout {
 
 		int step = getWidth() / getTabCount();
 
-		ObjectAnimator objAnima = ObjectAnimator.ofObject(mImgViewCursor, "translationX", new FloatEvaluator(),
-				currIndex * step, index * step);
+		ObjectAnimator objAnima = ObjectAnimator.ofObject(this, "ScrollX", new IntEvaluator(), (-1) * currIndex * step,
+				(-1) * index * step);
 		objAnima.setInterpolator(new DecelerateInterpolator(1.0f));
-		objAnima.setDuration(0);
+		objAnima.setDuration(300);
 		objAnima.start();
 
 		currIndex = index;
@@ -165,11 +159,11 @@ public class TabNaviBar extends FrameLayout {
 	}
 
 	/**
-	 * Get current activate tab index.
+	 * Get current actvite tab index.
 	 * 
 	 * @return
 	 */
-	public int getCurrtentIndex() {
+	public int getCurrentIndex() {
 		return currIndex;
 	}
 
