@@ -17,15 +17,16 @@
 
     <LinearLayout
                 android:id="@+id/inputLayout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
                 android:paddingTop="10dip"
                 android:orientation="vertical"
+                android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"
                 android:layout_below="@+id/include"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginRight="30dip"
+                android:layout_marginLeft="30dip">
 
 
         <EditText
@@ -49,6 +50,8 @@
             android:layout_height="2px"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:background="@color/gray"
             />
 
