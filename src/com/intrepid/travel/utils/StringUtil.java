@@ -17,7 +17,12 @@ import java.util.regex.Pattern;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.text.TextUtils;
+import android.view.KeyEvent;
+
 
 public class StringUtil {
 	
@@ -160,10 +165,41 @@ public class StringUtil {
         return sb.toString();
     }
 
-    public static boolean isEmail(String email){     
+    public static boolean isEmail(String email){
         String str="[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-        Pattern p = Pattern.compile(str);     
-        Matcher m = p.matcher(email);     
-        return m.matches();     
-    } 
+        Pattern p = Pattern.compile(str);
+        Matcher m = p.matcher(email);
+        return m.matches();
+    }
+
+    public static void showAlertDialog(String strTitle, String strMessage, Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(strMessage);
+        builder.setTitle(strTitle);
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+
+        alertDialog.setCancelable(false);
+
+        alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+
+            public boolean onKey(DialogInterface dialog, int keyCode,
+                                 KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_SEARCH) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+
+        alertDialog.show();
+    }
+
 }

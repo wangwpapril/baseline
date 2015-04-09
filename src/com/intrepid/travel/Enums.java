@@ -1,16 +1,11 @@
 package com.intrepid.travel;
 
-import java.security.PublicKey;
-
-import org.apache.http.impl.conn.DefaultClientConnection;
-
 import com.intrepid.travel.utils.ToastHelper;
-
 
 public class Enums {
 
 	public enum ConnMethod {
-		GET("get"), POST("post");
+		GET("get"), POST("post"),PUT("put");
 		private String type;
 
 		private ConnMethod(String type){
@@ -79,11 +74,14 @@ public class Enums {
 		currentUser("current user"),
 
 		netStatus("network status̬"),
+        firstname("first name"),
+        lastname("last name"),
+        email("email"),
 		username("user name"),
 		token("token"),
 		password("password"),
 		loginStatus("login status"),
-		userId("user id");
+		userId("user id"), ;
 	
 		private final String svalue;
 
@@ -100,9 +98,9 @@ public class Enums {
 
 	public enum NetStatus
 	{
-		Disable(ToastHelper.getStringFromResources(R.string.network_disconnected)),
-		WIFI(ToastHelper.getStringFromResources(R.string.network_wifi_connected)),
-		MOBILE(ToastHelper.getStringFromResources(R.string.network_mobile_connected));
+        Disable(ToastHelper.getStringFromResources(R.string.network_disconnected)),
+        WIFI(ToastHelper.getStringFromResources(R.string.network_wifi_connected)),
+        MOBILE(ToastHelper.getStringFromResources(R.string.network_mobile_connected));
 		
 		private final String svalue;
 

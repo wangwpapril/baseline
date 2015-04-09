@@ -1,11 +1,13 @@
 package com.intrepid.travel.utils;
 
 
+
 import com.intrepid.travel.MyApplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
 
 public class SharedPreferenceUtil {
 	private static final String SHARED_PREFERENCE_NAME = "travel smart";
