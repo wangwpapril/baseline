@@ -1,4 +1,4 @@
-package com.swishlabs.intrepid_android.activity;
+package com.intrepid.travel.ui.activity;
 
 
 import android.app.AlertDialog;
@@ -15,20 +15,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.swishlabs.intrepid_android.MyApplication;
-import com.swishlabs.intrepid_android.R;
-import com.swishlabs.intrepid_android.data.api.callback.ControllerContentTask;
-import com.swishlabs.intrepid_android.data.api.callback.IControllerContentCallback;
-import com.swishlabs.intrepid_android.data.api.model.Constants;
-import com.swishlabs.intrepid_android.data.api.model.User;
-import com.swishlabs.intrepid_android.data.store.beans.UserTable;
-import com.swishlabs.intrepid_android.util.Enums;
-import com.swishlabs.intrepid_android.util.SharedPreferenceUtil;
-import com.swishlabs.intrepid_android.util.StringUtil;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.intrepid.travel.Enums;
+import com.intrepid.travel.MyApplication;
+import com.intrepid.travel.R;
+import com.intrepid.travel.models.User;
+import com.intrepid.travel.net.Constants;
+import com.intrepid.travel.net.ControllerContentTask;
+import com.intrepid.travel.net.IControllerContentCallback;
+import com.intrepid.travel.store.beans.UserTable;
+import com.intrepid.travel.utils.SharedPreferenceUtil;
+import com.intrepid.travel.utils.StringUtil;
 
 
 public class LoginActivity extends BaseActivity {
@@ -94,7 +94,7 @@ public class LoginActivity extends BaseActivity {
                 return;
             } else if (!StringUtil.isEmail(email)) {
                 StringUtil.showAlertDialog(getResources().getString(R.string.login_title_name),
-                        getResources().getString(R.string.email_format_error), this);
+                        "email error", this);
                 return;
             }
 
@@ -131,12 +131,12 @@ public class LoginActivity extends BaseActivity {
                         userObj = jsonObj.getJSONObject("user");
                         user = new User(userObj);
                     }else {
-                        StringUtil.showAlertDialog(getResources().getString(R.string.login_title_name), getResources().getString(R.string.login_failed), context);
+                        StringUtil.showAlertDialog(getResources().getString(R.string.login_title_name), "failed", context);
                         return;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    StringUtil.showAlertDialog(getResources().getString(R.string.login_title_name), getResources().getString(R.string.login_failed), context);
+                    StringUtil.showAlertDialog(getResources().getString(R.string.login_title_name), "failed", context);
                     return;
                 }
 
@@ -170,7 +170,7 @@ public class LoginActivity extends BaseActivity {
 
                 public void handleError(Exception e) {
                     StringUtil.showAlertDialog(getResources().getString(
-                            R.string.login_title_name), getResources().getString(R.string.login_failed), context);
+                            R.string.login_title_name), "failed", context);
                     return;
 
                 }
@@ -201,14 +201,14 @@ public class LoginActivity extends BaseActivity {
 
 
         } else if (v == signUp) {
-            Intent mIntent = new Intent(LoginActivity.this, SignupActivity.class);
-            startActivity(mIntent);
+//            Intent mIntent = new Intent(LoginActivity.this, SignupActivity.class);
+  //          startActivity(mIntent);
 
         } else if (v == ivTitleBack) {
             onBackPressed();
         } else if (v == termsUse) {
-            Intent mIntent = new Intent(LoginActivity.this, LegalActivity.class);
-            startActivity(mIntent);
+    //        Intent mIntent = new Intent(LoginActivity.this, LegalActivity.class);
+      //      startActivity(mIntent);
 
         }
 
