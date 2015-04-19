@@ -71,6 +71,10 @@
             android:name=".ui.activity.RegisterActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         
     </application>
 

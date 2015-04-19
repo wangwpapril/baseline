@@ -1,5 +1,6 @@
 package com.intrepid.travel.net;
 
+
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -8,11 +9,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.List;
+import com.intrepid.travel.MyApplication;
 
 import org.apache.http.conn.ConnectTimeoutException;
 
-import com.intrepid.travel.Enums.NetStatus;
-import com.intrepid.travel.MyApplication;
+import com.intrepid.travel.Enums;
+
 
 
 public class SimpleHttpClient {
@@ -33,8 +35,8 @@ public class SimpleHttpClient {
 
 	
 	public static String doPost(PostParameter[] postParams,String connectionUrl,int connectTimeout) throws Exception{
-		NetStatus netStatus = MyApplication.getNetStatus();
-		if(netStatus == NetStatus.Disable){
+		Enums.NetStatus netStatus = MyApplication.getNetStatus();
+		if(netStatus == Enums.NetStatus.Disable){
 			return String.valueOf(NETWORK_DISABLED);
 		}
 		
@@ -84,8 +86,8 @@ public class SimpleHttpClient {
 	}
 
 	public static String doGet(String connectionUrl,int connectTimeout) throws Exception{
-		NetStatus netStatus = MyApplication.getNetStatus();
-		if(netStatus == NetStatus.Disable){
+		Enums.NetStatus netStatus = MyApplication.getNetStatus();
+		if(netStatus == Enums.NetStatus.Disable){
 			return String.valueOf(NETWORK_DISABLED);
 		}
 	
@@ -168,6 +170,9 @@ public class SimpleHttpClient {
 				response = new Response(connection);
 				responseCode = response.getStatusCode();
 
+                if (responseCode == NOT_FOUND)
+                    return response.asString();
+
 				if (responseCode != OK) {
 					if (responseCode < INTERNAL_SERVER_ERROR
 							|| retriedCount == retryCount)
@@ -187,8 +192,72 @@ public class SimpleHttpClient {
 		return response.asString();
 	}
 
+    public static String put(String entity, String connectionUrl,
+                              int connectTimeout) throws Exception{
+        int retriedCount = 0;
+        Response response = null;
 
-	private static String encodeParameters(PostParameter[] postParams) throws Exception {
+
+        for (retriedCount = 0; retriedCount < retryCount; retriedCount++) {
+
+            int responseCode = -1;
+            HttpURLConnection connection = null;
+            OutputStream os = null;
+            try {
+                connection = (HttpURLConnection) new URL(connectionUrl)
+                        .openConnection();
+                if (connectTimeout != 0) {
+                    connection.setConnectTimeout(connectTimeout);
+                }
+                connection.setRequestMethod("PUT");
+                connection.setRequestProperty("Content-Type",
+                        "application/json");
+                connection.setRequestProperty("Accept", "application/json");
+
+                connection.setDoOutput(true);
+                connection.setDoInput(true);
+
+                String postParam = "";
+
+                if (entity != null) {
+                    postParam = entity;
+                }
+
+
+                byte[] bytes = postParam.getBytes("UTF-8");
+                connection.setRequestProperty("Content-Length",
+                        Integer.toString(bytes.length));
+                os = connection.getOutputStream();
+                os.write(bytes);
+                os.flush();
+                os.close();
+                response = new Response(connection);
+                responseCode = response.getStatusCode();
+
+                if (responseCode == NOT_FOUND)
+                    return response.asString();
+
+                if (responseCode != OK) {
+                    if (responseCode < INTERNAL_SERVER_ERROR
+                            || retriedCount == retryCount)
+                        throw new Exception(getCause(responseCode));
+                } else {
+                    break;
+                }
+            } catch (ConnectTimeoutException e) {
+                throw new Exception("ConnectionTimeout", e);
+            } catch (InterruptedIOException e) {
+                throw new Exception("ConnectionTimeout", e);
+            } catch (Exception e) {
+                throw new Exception(e.getMessage(), e);
+            }
+        }
+
+        return response.asString();
+    }
+
+
+    private static String encodeParameters(PostParameter[] postParams) throws Exception {
 		StringBuffer buffer = new StringBuffer();
 		for (int i = 0; i < postParams.length; i++) {
 			if (i != 0){
